@@ -16,6 +16,7 @@ interface DriverStrategy {
   driver: string;
   team: string;
   number: number;
+  color: string;
   segments: TyreSegment[];
   stops: number;
   stopLaps: number[];
@@ -50,6 +51,7 @@ const strategies: DriverStrategy[] = [
     driver: "Lando Norris",
     team: "McLaren",
     number: 4,
+    color: "F58020",
     segments: [
       { compound: "Medium", startLap: 1, endLap: 18 },
       { compound: "Hard", startLap: 19, endLap: 42 },
@@ -59,32 +61,23 @@ const strategies: DriverStrategy[] = [
     stopLaps: [18, 42],
   },
   {
-    driver: "Max Verstappen",
-    team: "Red Bull",
-    number: 1,
+    driver: "Oscar Piastri",
+    team: "McLaren",
+    number: 81,
+    color: "F58020",
     segments: [
-      { compound: "Hard", startLap: 1, endLap: 15 },
-      { compound: "Medium", startLap: 16, endLap: 40 },
-      { compound: "Hard", startLap: 41, endLap: 57 },
+      { compound: "Hard", startLap: 1, endLap: 17 },
+      { compound: "Medium", startLap: 18, endLap: 41 },
+      { compound: "Hard", startLap: 42, endLap: 57 },
     ],
     stops: 2,
-    stopLaps: [15, 40],
-  },
-  {
-    driver: "Charles Leclerc",
-    team: "Ferrari",
-    number: 16,
-    segments: [
-      { compound: "Medium", startLap: 1, endLap: 22 },
-      { compound: "Hard", startLap: 23, endLap: 57 },
-    ],
-    stops: 1,
-    stopLaps: [22],
+    stopLaps: [17, 41],
   },
   {
     driver: "Lewis Hamilton",
     team: "Ferrari",
     number: 44,
+    color: "F91536",
     segments: [
       { compound: "Medium", startLap: 1, endLap: 16 },
       { compound: "Hard", startLap: 17, endLap: 44 },
@@ -94,22 +87,72 @@ const strategies: DriverStrategy[] = [
     stopLaps: [16, 44],
   },
   {
-    driver: "Oscar Piastri",
-    team: "McLaren",
-    number: 81,
+    driver: "Charles Leclerc",
+    team: "Ferrari",
+    number: 16,
+    color: "F91536",
     segments: [
-      { compound: "Hard", startLap: 1, endLap: 17 },
-      { compound: "Medium", startLap: 18, endLap: 41 },
-      { compound: "Hard", startLap: 42, endLap: 57 },
+      { compound: "Medium", startLap: 1, endLap: 22 },
+      { compound: "Hard", startLap: 23, endLap: 57 },
+    ],
+    stops: 1,
+    stopLaps: [22],
+  },
+  {
+    driver: "George Russell",
+    team: "Mercedes",
+    number: 63,
+    color: "27F4D2",
+    segments: [
+      { compound: "Hard", startLap: 1, endLap: 15 },
+      { compound: "Medium", startLap: 16, endLap: 40 },
+      { compound: "Hard", startLap: 41, endLap: 57 },
     ],
     stops: 2,
-    stopLaps: [17, 41],
+    stopLaps: [15, 40],
+  },
+  {
+    driver: "Andrea Kimi Antonelli",
+    team: "Mercedes",
+    number: 12,
+    color: "27F4D2",
+    segments: [
+      { compound: "Medium", startLap: 1, endLap: 20 },
+      { compound: "Hard", startLap: 21, endLap: 45 },
+      { compound: "Medium", startLap: 46, endLap: 57 },
+    ],
+    stops: 2,
+    stopLaps: [20, 45],
+  },
+  {
+    driver: "Max Verstappen",
+    team: "Red Bull Racing",
+    number: 1,
+    color: "3671C6",
+    segments: [
+      { compound: "Hard", startLap: 1, endLap: 18 },
+      { compound: "Medium", startLap: 19, endLap: 43 },
+      { compound: "Hard", startLap: 44, endLap: 57 },
+    ],
+    stops: 2,
+    stopLaps: [18, 43],
+  },
+  {
+    driver: "Isack Hadjar",
+    team: "Red Bull Racing",
+    number: 6,
+    color: "3671C6",
+    segments: [
+      { compound: "Medium", startLap: 1, endLap: 15 },
+      { compound: "Hard", startLap: 16, endLap: 40 },
+      { compound: "Medium", startLap: 41, endLap: 57 },
+    ],
+    stops: 2,
+    stopLaps: [15, 40],
   },
 ];
 
 function TyreTimeline({ strategy }: { strategy: DriverStrategy }) {
-  const lapWidth = 100 / TOTAL_LAPS;
-
   return (
     <div className="relative">
       {/* Lap markers */}
@@ -165,7 +208,16 @@ function TyreTimeline({ strategy }: { strategy: DriverStrategy }) {
       {/* Lap labels under timeline */}
       <div className="flex mt-1 text-[9px] text-[#8e8e93]">
         {strategy.stopLaps.map((lap, i) => (
-          <div key={i} className="flex items-center gap-1" style={{ marginLeft: i === 0 ? `${((lap - 1) / TOTAL_LAPS) * 100}%` : `${((lap - strategy.stopLaps[i - 1] - 1) / TOTAL_LAPS) * 100}%` }}>
+          <div
+            key={i}
+            className="flex items-center gap-1"
+            style={{
+              marginLeft:
+                i === 0
+                  ? `${((lap - 1) / TOTAL_LAPS) * 100}%`
+                  : `${((lap - strategy.stopLaps[i - 1] - 1) / TOTAL_LAPS) * 100}%`,
+            }}
+          >
             <span className="w-1.5 h-1.5 rounded-full bg-[#00ff94] inline-block" />
             <span> Lap {lap}</span>
           </div>
@@ -175,7 +227,15 @@ function TyreTimeline({ strategy }: { strategy: DriverStrategy }) {
   );
 }
 
-function DriverCard({ strategy, expanded, onClick }: { strategy: DriverStrategy; expanded: boolean; onClick: () => void }) {
+function DriverCard({
+  strategy,
+  expanded,
+  onClick,
+}: {
+  strategy: DriverStrategy;
+  expanded: boolean;
+  onClick: () => void;
+}) {
   return (
     <div
       className="card p-4 cursor-pointer active:scale-[0.98] transition-all"
@@ -184,7 +244,10 @@ function DriverCard({ strategy, expanded, onClick }: { strategy: DriverStrategy;
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-[#2c2c2e] flex items-center justify-center text-sm font-bold border border-[#38383a]">
+          <div
+            className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold border border-[#38383a]"
+            style={{ backgroundColor: `#${strategy.color}20`, color: `#${strategy.color}` }}
+          >
             {strategy.number}
           </div>
           <div>
@@ -193,7 +256,9 @@ function DriverCard({ strategy, expanded, onClick }: { strategy: DriverStrategy;
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <span className="pill">{strategy.stops} {strategy.stops === 1 ? "STOP" : "STOPS"}</span>
+          <span className="pill">
+            {strategy.stops} {strategy.stops === 1 ? "STOP" : "STOPS"}
+          </span>
         </div>
       </div>
 
@@ -207,7 +272,9 @@ function DriverCard({ strategy, expanded, onClick }: { strategy: DriverStrategy;
             >
               {compoundEmoji[seg.compound]}
             </span>
-            <span className="text-xs text-[#636366] font-mono">{compoundLabel[seg.compound]}</span>
+            <span className="text-xs text-[#636366] font-mono">
+              {compoundLabel[seg.compound]}
+            </span>
             {i < strategy.segments.length - 1 && (
               <span className="text-[#00ff94] text-sm mx-1">→</span>
             )}
@@ -249,7 +316,10 @@ function Legend() {
         <div key={c} className="flex items-center gap-2">
           <span
             className="w-4 h-4 rounded flex items-center justify-center text-xs"
-            style={{ backgroundColor: compoundBgColors[c], border: `1px solid ${compoundColors[c]}33` }}
+            style={{
+              backgroundColor: compoundBgColors[c],
+              border: `1px solid ${compoundColors[c]}33`,
+            }}
           >
             <span style={{ color: compoundColors[c], fontSize: "8px" }}>●</span>
           </span>
@@ -278,13 +348,20 @@ function SummaryCard() {
 
       <div className="space-y-3">
         <div className="bg-[#2c2c2e] rounded-xl p-3">
-          <p className="text-[10px] text-[#636366] uppercase tracking-wider mb-1">Most Popular Strategy</p>
+          <p className="text-[10px] text-[#636366] uppercase tracking-wider mb-1">
+            Most Popular Strategy
+          </p>
           <p className="text-[#00ff94] font-bold text-lg">Two-Stop</p>
-          <p className="text-xs text-[#8e8e93] mt-0.5">{twoStopDrivers} of 5 drivers ({twoStopDrivers * 20}%)</p>
+          <p className="text-xs text-[#8e8e93] mt-0.5">
+            {twoStopDrivers} of {strategies.length} drivers (
+            {Math.round((twoStopDrivers / strategies.length) * 100)}%)
+          </p>
         </div>
 
         <div className="bg-[#2c2c2e] rounded-xl p-3">
-          <p className="text-[10px] text-[#636366] uppercase tracking-wider mb-1">Expected Pace</p>
+          <p className="text-[10px] text-[#636366] uppercase tracking-wider mb-1">
+            Expected Pace
+          </p>
           <div className="flex items-center gap-2">
             <div className="flex-1 h-2 rounded-full bg-gradient-to-r from-green-500 via-yellow-400 to-white" />
           </div>
@@ -295,7 +372,9 @@ function SummaryCard() {
         </div>
 
         <div className="bg-[#2c2c2e] rounded-xl p-3">
-          <p className="text-[10px] text-[#636366] uppercase tracking-wider mb-1">Risk Assessment</p>
+          <p className="text-[10px] text-[#636366] uppercase tracking-wider mb-1">
+            Risk Assessment
+          </p>
           <div className="flex gap-2 mt-1">
             <div className="flex-1 text-center p-2 rounded-lg bg-green-500/10 border border-green-500/20">
               <p className="text-green-400 text-xs font-semibold">1-Stop</p>
@@ -352,7 +431,7 @@ export default function TyresPage() {
         {/* Driver Strategies */}
         <div className="space-y-3">
           <h2 className="text-sm font-semibold text-[#8e8e93] uppercase tracking-wider px-1">
-            Top 5 Start Grid
+            Top 8 Grid — Strategy Overview
           </h2>
           {strategies.map((strategy) => (
             <DriverCard

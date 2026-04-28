@@ -1,68 +1,68 @@
-// Static news data - shows latest F1 news
+// Static news data - shows latest F1 news (2026 pre-season focus)
 const NEWS = [
   {
     id: 1,
-    title: "Norris i Piastri dominen els entrenaments a Miami",
+    title: "Hamilton a Ferrari: el moviment que canvia la Fórmula 1",
     source: "F1.com",
     time: "2h",
-    category: "Pràctica",
-    emoji: "🏎️",
-  },
-  {
-    id: 2,
-    title: "Hamilton confia en el rendiment del Mercedes per a la classificació",
-    source: "Autosport",
-    time: "4h",
-    category: "Qualifying",
-    emoji: "📊",
-  },
-  {
-    id: 3,
-    title: "Verstappen: \"El cotxe millora cada vegada que sortim a pista\"",
-    source: "The Race",
-    time: "5h",
-    category: "Declaracions",
-    emoji: "🎙️",
-  },
-  {
-    id: 4,
-    title: "Leclerc espera una classificació difícil per a Ferrari",
-    source: "Motorsport.com",
-    time: "6h",
-    category: "Qualifying",
+    category: "Mercat",
     emoji: "🔴",
   },
   {
+    id: 2,
+    title: "Antonelli ascendeix a Mercedes: el jove italià代替Hamilton",
+    source: "Autosport",
+    time: "4h",
+    category: "Mercat",
+    emoji: "⭐",
+  },
+  {
+    id: 3,
+    title: "Hadjar promogut a Red Bull: el substitut de Pérez arriba",
+    source: "The Race",
+    time: "5h",
+    category: "Mercat",
+    emoji: "🏎️",
+  },
+  {
+    id: 4,
+    title: "McLaren 2025 Campió: Norris i Piastri consoliden la dominant",
+    source: "Motorsport.com",
+    time: "6h",
+    category: "Temporada",
+    emoji: "🏆",
+  },
+  {
     id: 5,
-    title: "Sainz Jr. sorprèn amb el tercer temps als FP2",
+    title: "Sainz deixa Ferrari i firma per Williams: nova etapa el 2026",
     source: "ESPN F1",
     time: "8h",
-    category: "Pràctica",
+    category: "Mercat",
     emoji: "📈",
   },
   {
     id: 6,
-    title: "Antonelli: \"Encara estic aprenent, però milloro\"",
+    title: "Colapinto a Alpine: l'argentí tornar a la graella el 2026",
     source: "F1.com",
     time: "10h",
-    category: "Declaracions",
-    emoji: "⭐",
+    category: "Mercat",
+    emoji: "🇦🇷",
   },
   {
     id: 7,
-    title: "Piastri: \"McLaren està en un bon moment, hem de seguir així\"",
+    title: "Bottas i Pérez a Cadillac: el nou projecte americà arriba a la F1",
     source: "Sky Sports",
     time: "12h",
-    category: "Declaracions",
-    emoji: "🏆",
+    category: "Mercat",
+    emoji: "🇺🇸",
   },
   {
     id: 8,
-    title: "Les pluges podrien complicar la sessió sprint de dissabte",
-    source: "Weather.com",
+    title: "Bearman a Haas: jove britànic agafa el segon seient americà",
+    source: "F1.com",
     time: "14h",
-    category: "Meteorologia",
-    emoji: "🌧️",
+    category: "Mercat",
+    emoji: "🇬🇧",
   },
 ];
 
@@ -82,7 +82,7 @@ export default function NewsPage() {
 
       {/* Categories */}
       <div className="flex gap-2 mb-4 overflow-x-auto no-scrollbar">
-        {["Totes", "Pràctica", "Qualifying", "Sprint", "Meteorologia", "Declaracions"].map((cat, i) => (
+        {["Totes", "Mercat", "Temporada", "Equips", "Declaracions"].map((cat, i) => (
           <button
             key={cat}
             className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap ${
@@ -106,6 +106,7 @@ export default function NewsPage() {
       {/* Footer */}
       <div className="mt-6 text-center text-[#636366] text-xs">
         <p>Notícies agregades de fonts públiques</p>
+        <p className="mt-1">F1Pro · Pre-temporada 2026</p>
       </div>
     </div>
   );

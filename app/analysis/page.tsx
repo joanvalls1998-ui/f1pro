@@ -1,12 +1,12 @@
 import Link from "next/link";
 
-// ─── Speed Trap Data ─────────────────────────────────────────────────────────
+// ─── Speed Trap Data (2026 Pre-season predictions) ─────────────────────────
 const SPEED_TRAP_DATA = [
-  { rank: 1, driver: "Max Verstappen", team: "Red Bull Racing", speed: 338, color: "#1e41db", diff: 0 },
-  { rank: 2, driver: "Oscar Piastri", team: "McLaren", speed: 336, color: "#ff8000", diff: 2 },
-  { rank: 3, driver: "Lando Norris", team: "McLaren", speed: 335, color: "#ff8000", diff: 3 },
-  { rank: 4, driver: "Charles Leclerc", team: "Ferrari", speed: 334, color: "#e8002d", diff: 4 },
-  { rank: 5, driver: "Lewis Hamilton", team: "Ferrari", speed: 332, color: "#e8002d", diff: 6 },
+  { rank: 1, driver: "Lando Norris", team: "McLaren", speed: 338, color: "#F58020", diff: 0 },
+  { rank: 2, driver: "Oscar Piastri", team: "McLaren", speed: 336, color: "#F58020", diff: 2 },
+  { rank: 3, driver: "Max Verstappen", team: "Red Bull Racing", speed: 335, color: "#3671C6", diff: 3 },
+  { rank: 4, driver: "Lewis Hamilton", team: "Ferrari", speed: 333, color: "#F91536", diff: 5 },
+  { rank: 5, driver: "Charles Leclerc", team: "Ferrari", speed: 332, color: "#F91536", diff: 6 },
 ];
 
 // ─── G-Force Data ─────────────────────────────────────────────────────────────
@@ -269,12 +269,12 @@ export default function AnalysisPage() {
             <InsightRow
               icon="📸"
               title="Top speed: 338 km/h"
-              desc="Verstappen dominates the speed trap on the main straight"
+              desc="Norris leads the speed trap in the McLaren, ahead of Piastri (336) and Verstappen (335)"
             />
             <InsightRow
               icon="⚡"
-              title="McLaren vs Red Bull"
-              desc="Piastri (336) and Norris (335) close behind — only 2–3 km/h off the leader"
+              title="McLaren dominance"
+              desc="Norris (338) and Piastri (336) lead — McLaren looks strong heading into 2026"
             />
             <InsightRow
               icon="📊"

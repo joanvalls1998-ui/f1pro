@@ -3,16 +3,28 @@
 import { useState } from "react";
 
 const DRIVERS = [
-  { number: 1, name: "Lando Norris", acronym: "NOR", team: "McLaren", color: "F47600" },
-  { number: 3, name: "Max Verstappen", acronym: "VER", team: "Red Bull", color: "4781D7" },
-  { number: 16, name: "Charles Leclerc", acronym: "LEC", team: "Ferrari", color: "E8002D" },
-  { number: 44, name: "Lewis Hamilton", acronym: "HAM", team: "Mercedes", color: "27F4D2" },
-  { number: 81, name: "Oscar Piastri", acronym: "PIA", team: "McLaren", color: "F47600" },
+  { number: 4, name: "Lando Norris", acronym: "NOR", team: "McLaren", color: "F58020" },
+  { number: 81, name: "Oscar Piastri", acronym: "PIA", team: "McLaren", color: "F58020" },
   { number: 63, name: "George Russell", acronym: "RUS", team: "Mercedes", color: "27F4D2" },
-  { number: 12, name: "Kimi Antonelli", acronym: "ANT", team: "Mercedes", color: "27F4D2" },
-  { number: 5, name: "Gabriel Bortoleto", acronym: "BOR", team: "Audi", color: "F50537" },
+  { number: 12, name: "Andrea Kimi Antonelli", acronym: "ANT", team: "Mercedes", color: "27F4D2" },
+  { number: 44, name: "Lewis Hamilton", acronym: "HAM", team: "Ferrari", color: "F91536" },
+  { number: 16, name: "Charles Leclerc", acronym: "LEC", team: "Ferrari", color: "F91536" },
+  { number: 1, name: "Max Verstappen", acronym: "VER", team: "Red Bull Racing", color: "3671C6" },
+  { number: 6, name: "Isack Hadjar", acronym: "HAD", team: "Red Bull Racing", color: "3671C6" },
+  { number: 23, name: "Alex Albon", acronym: "ALB", team: "Williams", color: "37BEDD" },
+  { number: 55, name: "Carlos Sainz", acronym: "SAI", team: "Williams", color: "37BEDD" },
+  { number: 30, name: "Liam Lawson", acronym: "LAW", team: "Racing Bulls", color: "2D0D0D" },
+  { number: 41, name: "Arvid Lindblad", acronym: "LIN", team: "Racing Bulls", color: "2D0D0D" },
+  { number: 14, name: "Fernando Alonso", acronym: "ALO", team: "Aston Martin", color: "358C75" },
+  { number: 18, name: "Lance Stroll", acronym: "STR", team: "Aston Martin", color: "358C75" },
   { number: 27, name: "Nico Hülkenberg", acronym: "HUL", team: "Audi", color: "F50537" },
-  { number: 10, name: "Pierre Gasly", acronym: "GAS", team: "Alpine", color: "00A1E8" },
+  { number: 5, name: "Gabriel Bortoleto", acronym: "BOR", team: "Audi", color: "F50537" },
+  { number: 87, name: "Oliver Bearman", acronym: "BEA", team: "Haas", color: "B6BABD" },
+  { number: 31, name: "Esteban Ocon", acronym: "OCO", team: "Haas", color: "B6BABD" },
+  { number: 10, name: "Pierre Gasly", acronym: "GAS", team: "Alpine", color: "2293D1" },
+  { number: 7, name: "Franco Colapinto", acronym: "COL", team: "Alpine", color: "2293D1" },
+  { number: 77, name: "Valtteri Bottas", acronym: "BOT", team: "Cadillac", color: "909090" },
+  { number: 11, name: "Sergio Pérez", acronym: "PER", team: "Cadillac", color: "909090" },
 ];
 
 const SESSIONS = [
@@ -91,7 +103,7 @@ function SpeedTrace({ color, driver, selected, onClick }: { color: string; drive
 }
 
 export default function TelemetryPage() {
-  const [selectedDrivers, setSelectedDrivers] = useState<number[]>([1, 3]);
+  const [selectedDrivers, setSelectedDrivers] = useState<number[]>([4, 44]);
   const [currentSession, setCurrentSession] = useState("RACE");
   const [lapFilter, setLapFilter] = useState("ALL");
 
@@ -106,7 +118,7 @@ export default function TelemetryPage() {
       {/* Header */}
       <div className="mb-4">
         <h1 className="text-xl font-bold">Telemetry</h1>
-        <p className="text-[#8e8e93] text-sm">Comparador de pilots · Jeddah GP</p>
+        <p className="text-[#8e8e93] text-sm">Comparador de pilots · Tots els circuits</p>
       </div>
 
       {/* Session selector */}

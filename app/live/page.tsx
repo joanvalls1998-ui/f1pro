@@ -4,18 +4,28 @@ import { useState, useEffect } from "react";
 
 // Static fallback data - rendered in initial HTML (works without JavaScript)
 const FALLBACK_DRIVERS = [
-  { driver_number: 1, name_acronym: "NOR", first_name: "Lando", last_name: "Norris", team_name: "McLaren", team_colour: "F47600" },
-  { driver_number: 3, name_acronym: "VER", first_name: "Max", last_name: "Verstappen", team_name: "Red Bull Racing", team_colour: "4781D7" },
-  { driver_number: 16, name_acronym: "LEC", first_name: "Charles", last_name: "Leclerc", team_name: "Ferrari", team_colour: "E8002D" },
-  { driver_number: 44, name_acronym: "HAM", first_name: "Lewis", last_name: "Hamilton", team_name: "Mercedes", team_colour: "27F4D2" },
-  { driver_number: 81, name_acronym: "PIA", first_name: "Oscar", last_name: "Piastri", team_name: "McLaren", team_colour: "F47600" },
+  { driver_number: 4, name_acronym: "NOR", first_name: "Lando", last_name: "Norris", team_name: "McLaren", team_colour: "F58020" },
+  { driver_number: 81, name_acronym: "PIA", first_name: "Oscar", last_name: "Piastri", team_name: "McLaren", team_colour: "F58020" },
   { driver_number: 63, name_acronym: "RUS", first_name: "George", last_name: "Russell", team_name: "Mercedes", team_colour: "27F4D2" },
-  { driver_number: 12, name_acronym: "ANT", first_name: "Kimi", last_name: "Antonelli", team_name: "Mercedes", team_colour: "27F4D2" },
-  { driver_number: 5, name_acronym: "BOR", first_name: "Gabriel", last_name: "Bortoleto", team_name: "Audi", team_colour: "F50537" },
+  { driver_number: 12, name_acronym: "ANT", first_name: "Andrea Kimi", last_name: "Antonelli", team_name: "Mercedes", team_colour: "27F4D2" },
+  { driver_number: 44, name_acronym: "HAM", first_name: "Lewis", last_name: "Hamilton", team_name: "Ferrari", team_colour: "F91536" },
+  { driver_number: 16, name_acronym: "LEC", first_name: "Charles", last_name: "Leclerc", team_name: "Ferrari", team_colour: "F91536" },
+  { driver_number: 1, name_acronym: "VER", first_name: "Max", last_name: "Verstappen", team_name: "Red Bull Racing", team_colour: "3671C6" },
+  { driver_number: 6, name_acronym: "HAD", first_name: "Isack", last_name: "Hadjar", team_name: "Red Bull Racing", team_colour: "3671C6" },
+  { driver_number: 23, name_acronym: "ALB", first_name: "Alex", last_name: "Albon", team_name: "Williams", team_colour: "37BEDD" },
+  { driver_number: 55, name_acronym: "SAI", first_name: "Carlos", last_name: "Sainz", team_name: "Williams", team_colour: "37BEDD" },
+  { driver_number: 30, name_acronym: "LAW", first_name: "Liam", last_name: "Lawson", team_name: "Racing Bulls", team_colour: "2D0D0D" },
+  { driver_number: 41, name_acronym: "LIN", first_name: "Arvid", last_name: "Lindblad", team_name: "Racing Bulls", team_colour: "2D0D0D" },
+  { driver_number: 14, name_acronym: "ALO", first_name: "Fernando", last_name: "Alonso", team_name: "Aston Martin", team_colour: "358C75" },
+  { driver_number: 18, name_acronym: "STR", first_name: "Lance", last_name: "Stroll", team_name: "Aston Martin", team_colour: "358C75" },
   { driver_number: 27, name_acronym: "HUL", first_name: "Nico", last_name: "Hülkenberg", team_name: "Audi", team_colour: "F50537" },
-  { driver_number: 10, name_acronym: "GAS", first_name: "Pierre", last_name: "Gasly", team_name: "Alpine", team_colour: "00A1E8" },
-  { driver_number: 6, name_acronym: "HAD", first_name: "Isack", last_name: "Hadjar", team_name: "Red Bull Racing", team_colour: "4781D7" },
-  { driver_number: 55, name_acronym: "SAI", first_name: "Carlos", last_name: "Sainz Jr.", team_name: "Williams", team_colour: "64C3FF" },
+  { driver_number: 5, name_acronym: "BOR", first_name: "Gabriel", last_name: "Bortoleto", team_name: "Audi", team_colour: "F50537" },
+  { driver_number: 87, name_acronym: "BEA", first_name: "Oliver", last_name: "Bearman", team_name: "Haas", team_colour: "B6BABD" },
+  { driver_number: 31, name_acronym: "OCO", first_name: "Esteban", last_name: "Ocon", team_name: "Haas", team_colour: "B6BABD" },
+  { driver_number: 10, name_acronym: "GAS", first_name: "Pierre", last_name: "Gasly", team_name: "Alpine", team_colour: "2293D1" },
+  { driver_number: 7, name_acronym: "COL", first_name: "Franco", last_name: "Colapinto", team_name: "Alpine", team_colour: "2293D1" },
+  { driver_number: 77, name_acronym: "BOT", first_name: "Valtteri", last_name: "Bottas", team_name: "Cadillac", team_colour: "909090" },
+  { driver_number: 11, name_acronym: "PER", first_name: "Sergio", last_name: "Pérez", team_name: "Cadillac", team_colour: "909090" },
 ];
 
 interface Session {

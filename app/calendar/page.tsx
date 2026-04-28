@@ -1,22 +1,26 @@
 const RACES = [
-  { name: "Bahrain Grand Prix", date: "2026-03-14", location: "Sakhir", flag: "BH", status: "completed", sessions: ["FP1", "FP2", "FP3", "Q", "Race"] },
-  { name: "Saudi Arabian Grand Prix", date: "2026-03-21", location: "Jeddah", flag: "SA", status: "completed", sessions: ["FP1", "Q", "Sprint", "SQ", "Race"] },
-  { name: "Australian Grand Prix", date: "2026-03-28", location: "Melbourne", flag: "AU", status: "completed", sessions: ["FP1", "FP2", "FP3", "Q", "Race"] },
-  { name: "Chinese Grand Prix", date: "2026-04-05", location: "Shanghai", flag: "CN", status: "completed", sessions: ["FP1", "SQ", "Sprint", "FP2", "Q", "Race"] },
-  { name: "Japanese Grand Prix", date: "2026-04-12", location: "Suzuka", flag: "JP", status: "completed", sessions: ["FP1", "FP2", "FP3", "Q", "Race"] },
-  { name: "Miami Grand Prix", date: "2026-05-01", location: "Miami", flag: "US", status: "next", sessions: ["FP1", "SQ", "Sprint", "Q", "Race"] },
-  { name: "Spanish Grand Prix", date: "2026-05-10", location: "Barcelona", flag: "ES", status: "upcoming", sessions: ["FP1", "FP2", "FP3", "Q", "Race"] },
-  { name: "Monaco Grand Prix", date: "2026-05-24", location: "Monaco", flag: "MC", status: "upcoming", sessions: ["FP1", "FP2", "FP3", "Q", "Race"] },
-  { name: "Canadian Grand Prix", date: "2026-06-07", location: "Montreal", flag: "CA", status: "upcoming", sessions: ["FP1", "SQ", "Sprint", "Q", "Race"] },
-  { name: "British Grand Prix", date: "2026-07-05", location: "Silverstone", flag: "GB", status: "upcoming", sessions: ["FP1", "FP2", "FP3", "Q", "Race"] },
-  { name: "Belgian Grand Prix", date: "2026-07-26", location: "Spa", flag: "BE", status: "upcoming", sessions: ["FP1", "FP2", "FP3", "Q", "Race"] },
-  { name: "Dutch Grand Prix", date: "2026-08-30", location: "Zandvoort", flag: "NL", status: "upcoming", sessions: ["FP1", "FP2", "FP3", "Q", "Race"] },
-  { name: "Italian Grand Prix", date: "2026-09-06", location: "Monza", flag: "IT", status: "upcoming", sessions: ["FP1", "FP2", "FP3", "Q", "Race"] },
-  { name: "Azerbaijan Grand Prix", date: "2026-09-20", location: "Baku", flag: "AZ", status: "upcoming", sessions: ["FP1", "SQ", "Sprint", "Q", "Race"] },
-  { name: "Singapore Grand Prix", date: "2026-10-04", location: "Singapore", flag: "SG", status: "upcoming", sessions: ["FP1", "FP2", "FP3", "Q", "Race"] },
-  { name: "Las Vegas Grand Prix", date: "2026-10-31", location: "Las Vegas", flag: "US", status: "upcoming", sessions: ["FP1", "FP2", "FP3", "Q", "Race"] },
-  { name: "Qatar Grand Prix", date: "2026-11-29", location: "Lusail", flag: "QA", status: "upcoming", sessions: ["FP1", "SQ", "Sprint", "Q", "Race"] },
-  { name: "Abu Dhabi Grand Prix", date: "2026-12-06", location: "Yas Marina", flag: "AE", status: "upcoming", sessions: ["FP1", "FP2", "FP3", "Q", "Race"] },
+  { name: "Australian Grand Prix", date: "2026-03-06", location: "Melbourne", flag: "AU", status: "completed", laps: 58, km: 5.278 },
+  { name: "Chinese Grand Prix", date: "2026-03-13", location: "Shanghai", flag: "CN", status: "completed", laps: 56, km: 5.451 },
+  { name: "Japanese Grand Prix", date: "2026-03-27", location: "Suzuka", flag: "JP", status: "completed", laps: 53, km: 5.807 },
+  { name: "Miami Grand Prix", date: "2026-05-01", location: "Miami", flag: "US", status: "next", laps: 57, km: 5.412 },
+  { name: "Canadian Grand Prix", date: "2026-05-22", location: "Montreal", flag: "CA", status: "upcoming", laps: 70, km: 4.361 },
+  { name: "Monaco Grand Prix", date: "2026-06-05", location: "Monaco", flag: "MC", status: "upcoming", laps: 78, km: 3.337 },
+  { name: "Spanish Grand Prix (Barcelona)", date: "2026-06-12", location: "Barcelona", flag: "ES", status: "upcoming", laps: 66, km: 4.675 },
+  { name: "Austrian Grand Prix", date: "2026-06-26", location: "Spielberg", flag: "AT", status: "upcoming", laps: 71, km: 4.318 },
+  { name: "British Grand Prix", date: "2026-07-03", location: "Silverstone", flag: "GB", status: "upcoming", laps: 52, km: 5.891 },
+  { name: "Belgian Grand Prix", date: "2026-07-17", location: "Spa", flag: "BE", status: "upcoming", laps: 44, km: 7.004 },
+  { name: "Hungarian Grand Prix", date: "2026-07-24", location: "Budapest", flag: "HU", status: "upcoming", laps: 70, km: 4.381 },
+  { name: "Dutch Grand Prix", date: "2026-08-21", location: "Zandvoort", flag: "NL", status: "upcoming", laps: 72, km: 4.259 },
+  { name: "Italian Grand Prix", date: "2026-09-04", location: "Monza", flag: "IT", status: "upcoming", laps: 53, km: 5.793 },
+  { name: "Spanish Grand Prix (Madrid)", date: "2026-09-11", location: "Madrid", flag: "ES", status: "upcoming", laps: 65, km: 4.600 },
+  { name: "Azerbaijan Grand Prix", date: "2026-09-24", location: "Baku", flag: "AZ", status: "upcoming", laps: 51, km: 6.003 },
+  { name: "Singapore Grand Prix", date: "2026-10-09", location: "Singapore", flag: "SG", status: "upcoming", laps: 61, km: 4.928 },
+  { name: "United States Grand Prix", date: "2026-10-23", location: "Austin", flag: "US", status: "upcoming", laps: 56, km: 5.513 },
+  { name: "Mexican Grand Prix", date: "2026-10-30", location: "Mexico City", flag: "MX", status: "upcoming", laps: 71, km: 4.304 },
+  { name: "Brazilian Grand Prix", date: "2026-11-06", location: "Interlagos", flag: "BR", status: "upcoming", laps: 71, km: 4.309 },
+  { name: "Las Vegas Grand Prix", date: "2026-11-19", location: "Las Vegas", flag: "US", status: "upcoming", laps: 50, km: 6.120 },
+  { name: "Qatar Grand Prix", date: "2026-11-27", location: "Lusail", flag: "QA", status: "upcoming", laps: 57, km: 5.380 },
+  { name: "Abu Dhabi Grand Prix", date: "2026-12-04", location: "Yas Marina", flag: "AE", status: "upcoming", laps: 55, km: 5.281 },
 ];
 
 const SESSION_TIMES: Record<string, string> = {
@@ -31,13 +35,14 @@ const SESSION_TIMES: Record<string, string> = {
 
 export default function CalendarPage() {
   const nextRace = RACES.find(r => r.status === "next");
+  const completedCount = RACES.filter(r => r.status === "completed").length;
   
   return (
     <div className="min-h-full px-4 pt-16 pb-4">
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold mb-1">Calendari 2026</h1>
-        <p className="text-[#8e8e93] text-sm">18 curses · Març - Desembre</p>
+        <p className="text-[#8e8e93] text-sm">{completedCount}/24 curses completades</p>
       </div>
 
       {/* Miami highlight */}
@@ -54,7 +59,7 @@ export default function CalendarPage() {
           
           {/* Session times */}
           <div className="grid grid-cols-5 gap-2 mt-3">
-            {nextRace.sessions.slice(0, 5).map((session) => (
+            {["FP1", "SQ", "Sprint", "Q", "Race"].map((session) => (
               <div key={session} className="bg-[#2c2c2e] rounded-lg p-2 text-center">
                 <p className="text-[10px] text-[#636366]">{session}</p>
                 <p className="text-xs font-semibold">{SESSION_TIMES[session] || "--:--"}</p>
@@ -65,26 +70,25 @@ export default function CalendarPage() {
       )}
 
       {/* Race list */}
-      <div className="space-y-3">
+      <div className="space-y-2">
         {RACES.map((race, i) => (
           <div 
             key={i} 
-            className={`card flex items-center gap-4 p-4 ${
-              race.status === "next" ? "border-[#00ff94]/50" : ""
+            className={`card flex items-center gap-3 p-3 ${
+              race.status === "next" ? "border border-[#00ff94]/50" : ""
             }`}
           >
-            <div className="text-center w-12 flex-shrink-0">
-              <span className="text-2xl">{getFlagEmoji(race.flag)}</span>
-              <p className="text-[10px] text-[#636366] mt-1">{race.sessions.length} ses.</p>
+            <div className="text-center w-10 flex-shrink-0">
+              <span className="text-xl">{getFlagEmoji(race.flag)}</span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className={`font-medium ${race.status === "next" ? "text-[#00ff94]" : ""}`}>
+              <p className={`font-medium text-sm ${race.status === "next" ? "text-[#00ff94]" : ""}`}>
                 {race.name}
               </p>
-              <p className="text-[#636366] text-sm">{race.location}</p>
+              <p className="text-[#636366] text-xs">{race.location} · {race.laps} vols · {race.km} km</p>
             </div>
             <div className="text-right flex-shrink-0">
-              <p className="text-sm text-[#8e8e93]">{formatDate(race.date)}</p>
+              <p className="text-xs text-[#8e8e93]">{formatDate(race.date)}</p>
               <StatusBadge status={race.status} />
             </div>
           </div>
@@ -96,10 +100,10 @@ export default function CalendarPage() {
 
 function getFlagEmoji(code: string): string {
   const flags: Record<string, string> = {
-    BH: "🇧🇭", SA: "🇸🇦", AU: "🇦🇺", CN: "🇨🇳", JP: "🇯🇵",
-    US: "🇺🇸", ES: "🇪🇸", MC: "🇲🇨", CA: "🇨🇦", GB: "🇬🇧",
-    BE: "🇧🇪", NL: "🇳🇱", IT: "🇮🇹", AZ: "🇦🇿", SG: "🇸🇬",
-    QA: "🇶🇦", AE: "🇦🇪",
+    AU: "🇦🇺", CN: "🇨🇳", JP: "🇯🇵", BH: "🇧🇭", SA: "🇸🇦",
+    US: "🇺🇸", CA: "🇨🇦", MC: "🇲🇨", ES: "🇪🇸", AT: "🇦🇹",
+    GB: "🇬🇧", BE: "🇧🇪", HU: "🇭🇺", NL: "🇳🇱", IT: "🇮🇹",
+    AZ: "🇦🇿", SG: "🇸🇬", MX: "🇲🇽", BR: "🇧🇷", QA: "🇶🇦", AE: "🇦🇪",
   };
   return flags[code] || "🏁";
 }
