@@ -55,7 +55,7 @@ const MIAMI_GP = {
   circuit: "Miami International Autodrome",
   country: "US",
   flag: "🇺🇸",
-  round: 7,
+  round: 4,
   year: 2026,
 };
 
@@ -318,38 +318,38 @@ export default function HomePage() {
         <div className="rounded-2xl overflow-hidden border border-[#38383a]">
           <StandingRow
             rank={1}
-            driver="Lando Norris"
-            team="McLaren"
-            points={85}
-            color="#ff8000"
+            driver="Kimi Antonelli"
+            team="Mercedes"
+            points={72}
+            color="#27F4D2"
           />
           <StandingRow
             rank={2}
-            driver="Oscar Piastri"
-            team="McLaren"
-            points={74}
-            color="#ff8000"
+            driver="George Russell"
+            team="Mercedes"
+            points={63}
+            color="#27F4D2"
           />
           <StandingRow
             rank={3}
-            driver="Max Verstappen"
-            team="Red Bull Racing"
-            points={71}
-            color="#1e41db"
+            driver="Charles Leclerc"
+            team="Ferrari"
+            points={49}
+            color="#F91536"
           />
           <StandingRow
             rank={4}
-            driver="Kimi Antonelli"
-            team="Mercedes"
-            points={52}
-            color="#27f4d2"
+            driver="Lewis Hamilton"
+            team="Ferrari"
+            points={41}
+            color="#F91536"
           />
           <StandingRow
             rank={5}
-            driver="George Russell"
-            team="Mercedes"
-            points={48}
-            color="#27f4d2"
+            driver="Lando Norris"
+            team="McLaren"
+            points={25}
+            color="#F58020"
           />
         </div>
       </div>

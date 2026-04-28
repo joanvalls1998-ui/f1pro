@@ -17,7 +17,8 @@ const TEAM_COLORS: Record<string, string> = {
   "Cadillac": "#909090",
 };
 
-// ── 2026 Real Standings (after Australian, Chinese, Japanese GP) ────────────────
+// ── 2026 Season Results (after Round 3: Australia, China, Japan) ──────────────
+// Bahrain & Saudi Arabia were cancelled
 const FALLBACK_DRIVERS = [
   { position: "1", Driver: { givenName: "Kimi", familyName: "Antonelli", team: "Mercedes" }, points: "72" },
   { position: "2", Driver: { givenName: "George", familyName: "Russell", team: "Mercedes" }, points: "63" },
@@ -204,6 +205,15 @@ export default function StandingsPage() {
           {error && (
             <span className="text-xs text-[#ff9500]">Dades offline</span>
           )}
+        </div>
+      </div>
+
+      {/* Race results banner */}
+      <div className="bg-[#ffd700]/10 border border-[#ffd700]/30 rounded-xl p-3 mb-4 flex items-center gap-3">
+        <span className="text-xl">🏆</span>
+        <div>
+          <p className="text-sm font-semibold text-[#ffd700]">Temporada 2026 en curs · 3 curses completades</p>
+          <p className="text-xs text-[#8e8e93]">R1: Russell (AUS) · R2: Antonelli (CHN) · R3: Antonelli (JPN) · Bahrain &amp; Saudi: CANCEL·LADES</p>
         </div>
       </div>
 

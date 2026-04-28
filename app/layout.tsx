@@ -149,6 +149,7 @@ function NavItem({ href, icon, label }: { href: string; icon: string; label: str
   return (
     <a
       href={href}
+      aria-label={label}
       className="nav-item relative flex flex-col items-center justify-center px-1 h-full text-[#8e8e93] hover:text-white transition-colors duration-200"
     >
       <svg
@@ -156,6 +157,7 @@ function NavItem({ href, icon, label }: { href: string; icon: string; label: str
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
         dangerouslySetInnerHTML={{ __html: icons[icon] || "" }}
       />
       <span className="text-[9px] font-medium">{label}</span>
