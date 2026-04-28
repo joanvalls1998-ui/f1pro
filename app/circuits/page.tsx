@@ -205,7 +205,7 @@ export default function CircuitsPage() {
   const totalLength = circuits.reduce((sum, c) => sum + c.length, 0);
 
   return (
-    <div className="min-h-full px-4 pt-12 pb-24">
+    <div className="min-h-full px-4 pt-16 pb-24">
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold mb-1">Circuits</h1>

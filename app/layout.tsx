@@ -1,9 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "F1Pro | 2026",
   description: "F1 Live Timing, Telemetry & More",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "F1Pro",
+  },
   icons: {
     icon: [
       {
@@ -11,7 +17,22 @@ export const metadata: Metadata = {
         type: "image/svg+xml",
       },
     ],
+    apple: [
+      {
+        url: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏎️</text></svg>",
+        type: "image/svg+xml",
+      },
+    ],
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
+  themeColor: "#0a0a0a",
 };
 
 export default function RootLayout({
@@ -21,6 +42,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ca" className="h-full">
+      <head>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="F1Pro" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="theme-color" content="#0a0a0a" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(e=>console.warn('SW:',e))}`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-[#0a0a0a] text-white antialiased">
         <TopBar />
         <main className="flex-1 overflow-auto pb-20">
@@ -50,7 +83,6 @@ function TopBar() {
 }
 
 function StatusBadge() {
-  // Check if there's a live session (Miami GP timeframe: May 1-3)
   const now = new Date();
   const miamiStart = new Date("2026-05-01T16:00:00Z");
   const miamiEnd = new Date("2026-05-03T22:00:00Z");
@@ -91,7 +123,6 @@ function BottomNav() {
     { href: "/circuits", icon: "circuit", label: "Circuits" },
     { href: "/standings", icon: "trophy", label: "Classificació" },
     { href: "/telemetry", icon: "chart", label: "Telemetry" },
-    { href: "/weather", icon: "cloud", label: "Weather" },
   ];
 
   return (
@@ -109,11 +140,10 @@ function NavItem({ href, icon, label }: { href: string; icon: string; label: str
   const icons: Record<string, string> = {
     home: `<path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/>`,
     bolt: `<path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>`,
-    weather: `<path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/><circle cx="12" cy="12" r="4"/>`,
+    weather: `<circle cx="12" cy="12" r="4"/><path stroke="currentColor" strokeWidth="2" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2"/>`,
     circuit: `<path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>`,
     trophy: `<polyline points="12,2 15,8 22,9 17,14 18,21 12,18 6,21 7,14 2,9 9,8"/>`,
     chart: `<polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>`,
-    cloud: `<path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/>`,
   };
 
   return (

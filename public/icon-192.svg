@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <rect width="192" height="192" fill="#0a0a0a"/>
+  <!-- Racing flag inspired icon -->
+  <rect x="30" y="40" width="16" height="112" fill="#ffffff"/>
+  <rect x="62" y="40" width="16" height="112" fill="#0a0a0a"/>
+  <rect x="94" y="40" width="16" height="112" fill="#ffffff"/>
+  <rect x="126" y="40" width="16" height="112" fill="#0a0a0a"/>
+  <!-- Top row checker -->
+  <rect x="30" y="40" width="16" height="28" fill="#ffffff"/>
+  <rect x="62" y="40" width="16" height="28" fill="#0a0a0a"/>
+  <rect x="94" y="40" width="16" height="28" fill="#ffffff"/>
+  <rect x="126" y="40" width="16" height="28" fill="#0a0a0a"/>
+  <!-- Second row -->
+  <rect x="30" y="68" width="16" height="28" fill="#0a0a0a"/>
+  <rect x="62" y="68" width="16" height="28" fill="#ffffff"/>
+  <rect x="94" y="68" width="16" height="28" fill="#0a0a0a"/>
+  <rect x="126" y="68" width="16" height="28" fill="#ffffff"/>
+  <!-- Third row -->
+  <rect x="30" y="96" width="16" height="28" fill="#ffffff"/>
+  <rect x="62" y="96" width="16" height="28" fill="#0a0a0a"/>
+  <rect x="94" y="96" width="16" height="28" fill="#ffffff"/>
+  <rect x="126" y="96" width="16" height="28" fill="#0a0a0a"/>
+  <!-- Bottom row -->
+  <rect x="30" y="124" width="16" height="28" fill="#0a0a0a"/>
+  <rect x="62" y="124" width="16" height="28" fill="#ffffff"/>
+  <rect x="94" y="124" width="16" height="28" fill="#0a0a0a"/>
+  <rect x="126" y="124" width="16" height="28" fill="#ffffff"/>
+  <!-- Accent line -->
+  <rect x="20" y="36" width="8" height="120" fill="#00ff94" rx="2"/>
+</svg>

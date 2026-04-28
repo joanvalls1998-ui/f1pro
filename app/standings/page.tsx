@@ -189,7 +189,7 @@ export default function StandingsPage() {
   const constructorRows = constructors.slice(0, 10);
 
   return (
-    <div className="min-h-full px-5 pt-12 pb-4">
+    <div className="min-h-full px-5 pt-16 pb-4">
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center justify-between">
