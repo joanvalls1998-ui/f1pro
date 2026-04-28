@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getDriverStandings, getNextRace, getCurrentSession, getSessionsByMeeting } from "@/lib/openf1";
+import HomeWeatherSummary from "@/app/components/HomeWeatherSummary";
 
 // ─── Static fallback data ───────────────────────────────────────────────────
 const FALLBACK_NEXT_GP = {
@@ -251,19 +252,7 @@ export default async function HomePage() {
               </div>
             )}
 
-            {/* Track map placeholder + weather */}
-            <div className="mt-4 pt-3 border-t border-[#2c2c2e] flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-base">🌤️</span>
-                <span className="text-[#636366] text-xs">{gp.circuit.split(",")[0]}</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="text-[#48484a] text-[10px]">Miami GP · Rd {gp.round || 4}</span>
-                <Link href="/circuits" className="text-[#00ff94]/70 text-[10px] font-medium hover:text-[#00ff94] transition-colors">
-                  Circuits →
-                </Link>
-              </div>
-            </div>
+            <HomeWeatherSummary />
           </div>
         </div>
       </div>
