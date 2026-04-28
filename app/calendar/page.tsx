@@ -1,9 +1,11 @@
+"use client";
+
+import { useState } from "react";
+
 const RACES = [
-  { name: "Bahrain Grand Prix", date: "2026-02-27", location: "Sakhir", flag: "BH", status: "cancelled", laps: 57, km: 5.412 },
-  { name: "Saudi Arabian Grand Prix", date: "2026-03-06", location: "Jeddah", flag: "SA", status: "cancelled", laps: 50, km: 6.174 },
-  { name: "Australian Grand Prix", date: "2026-03-14", location: "Melbourne", flag: "AU", status: "completed", laps: 58, km: 5.278 },
-  { name: "Chinese Grand Prix", date: "2026-03-21", location: "Shanghai", flag: "CN", status: "completed", laps: 56, km: 5.451 },
-  { name: "Japanese Grand Prix", date: "2026-04-04", location: "Suzuka", flag: "JP", status: "completed", laps: 53, km: 5.807 },
+  { name: "Australian Grand Prix", date: "2026-03-06", location: "Melbourne", flag: "AU", status: "completed", laps: 58, km: 5.278 },
+  { name: "Chinese Grand Prix", date: "2026-03-13", location: "Shanghai", flag: "CN", status: "completed", laps: 56, km: 5.451 },
+  { name: "Japanese Grand Prix", date: "2026-03-27", location: "Suzuka", flag: "JP", status: "completed", laps: 53, km: 5.807 },
   { name: "Miami Grand Prix", date: "2026-05-01", location: "Miami", flag: "US", status: "next", laps: 57, km: 5.412 },
   { name: "Canadian Grand Prix", date: "2026-05-22", location: "Montreal", flag: "CA", status: "upcoming", laps: 70, km: 4.361 },
   { name: "Monaco Grand Prix", date: "2026-06-05", location: "Monaco", flag: "MC", status: "upcoming", laps: 78, km: 3.337 },
@@ -35,10 +37,25 @@ const SESSION_TIMES: Record<string, string> = {
   "Race": "20:00",
 };
 
+const SESSION_LABELS: Record<string, string> = {
+  "FP1": "Practice 1",
+  "FP2": "Practice 2",
+  "FP3": "Practice 3",
+  "SQ": "Sprint Qualifying",
+  "Sprint": "Sprint Race",
+  "Q": "Qualifying",
+  "Race": "Race",
+};
+
 export default function CalendarPage() {
+  const [expandedRace, setExpandedRace] = useState<string | null>("Miami Grand Prix");
   const nextRace = RACES.find(r => r.status === "next");
   const completedCount = RACES.filter(r => r.status === "completed").length;
-  
+
+  const toggleRace = (name: string) => {
+    setExpandedRace(prev => prev === name ? null : name);
+  };
+
   return (
     <div className="min-h-full px-4 pt-16 pb-4">
       {/* Header */}
@@ -58,13 +75,14 @@ export default function CalendarPage() {
               <p className="text-[#8e8e93] text-sm">{nextRace.location}</p>
             </div>
           </div>
-          
+
           {/* Session times */}
           <div className="grid grid-cols-5 gap-2 mt-3">
             {["FP1", "SQ", "Sprint", "Q", "Race"].map((session) => (
               <div key={session} className="bg-[#2c2c2e] rounded-lg p-2 text-center">
                 <p className="text-[10px] text-[#636366]">{session}</p>
                 <p className="text-xs font-semibold">{SESSION_TIMES[session] || "--:--"}</p>
+                <p className="text-[9px] text-[#48484a]">CEST</p>
               </div>
             ))}
           </div>
@@ -73,28 +91,56 @@ export default function CalendarPage() {
 
       {/* Race list */}
       <div className="space-y-2">
-        {RACES.map((race, i) => (
-          <div
-            key={i}
-            className={`card flex items-center gap-3 p-3 ${
-              race.status === "next" ? "border border-[#00ff94]/50" : ""
-            } ${race.status === "cancelled" ? "opacity-50" : ""}`}
-          >
-            <div className="text-center w-10 flex-shrink-0">
-              <span className="text-xl">{getFlagEmoji(race.flag)}</span>
+        {RACES.map((race, i) => {
+          const isExpanded = expandedRace === race.name;
+          return (
+            <div key={i}>
+              <div
+                className={`card flex items-center gap-3 p-3 cursor-pointer transition-all active:scale-[0.99] ${
+                  race.status === "next" ? "border border-[#00ff94]/50" : ""
+                }`}
+                onClick={() => toggleRace(race.name)}
+              >
+                <div className="text-center w-10 flex-shrink-0">
+                  <span className="text-xl">{getFlagEmoji(race.flag)}</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className={`font-medium text-sm ${race.status === "next" ? "text-[#00ff94]" : ""}`}>
+                    {race.name}
+                  </p>
+                  <p className="text-[#636366] text-xs">{race.location} · {race.laps} vols · {race.km} km</p>
+                </div>
+                <div className="text-right flex-shrink-0 flex items-center gap-2">
+                  <div>
+                    <p className="text-xs text-[#8e8e93]">{formatDate(race.date)}</p>
+                    <StatusBadge status={race.status} />
+                  </div>
+                  <span className={`text-[#636366] text-xs transition-transform ${isExpanded ? "rotate-90" : ""}`}>
+                    ›
+                  </span>
+                </div>
+              </div>
+
+              {/* Expanded session details */}
+              {isExpanded && (
+                <div className="mt-1 mx-4 mb-2 p-3 bg-[#1c1c1e] rounded-xl border border-[#2c2c2e]">
+                  <p className="text-[10px] text-[#636366] uppercase tracking-wider mb-2">Sessions (CEST)</p>
+                  <div className="space-y-1.5">
+                    {["FP1", "FP2", "FP3", "SQ", "Sprint", "Q", "Race"].map((session) => (
+                      <div key={session} className="flex items-center justify-between">
+                        <span className="text-xs text-[#8e8e93]">{SESSION_LABELS[session]}</span>
+                        <div className="flex items-center gap-1">
+                          <span className="text-xs font-medium">{SESSION_TIMES[session] || "--:--"}</span>
+                          <span className="text-[9px] text-[#48484a]">CEST</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-            <div className="flex-1 min-w-0">
-              <p className={`font-medium text-sm ${race.status === "next" ? "text-[#00ff94]" : ""}`}>
-                {race.name}
-              </p>
-              <p className="text-[#636366] text-xs">{race.location} · {race.laps} vols · {race.km} km</p>
-            </div>
-            <div className="text-right flex-shrink-0">
-              <p className="text-xs text-[#8e8e93]">{formatDate(race.date)}</p>
-              <StatusBadge status={race.status} />
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
@@ -118,9 +164,6 @@ function formatDate(dateStr: string): string {
 function StatusBadge({ status }: { status: string }) {
   if (status === "completed") {
     return <span className="text-xs text-[#00ff94]">✓</span>;
-  }
-  if (status === "cancelled") {
-    return <span className="text-xs text-red-400">CANCELLADA</span>;
   }
   if (status === "next") {
     return <span className="pill">PRÒXIMA</span>;

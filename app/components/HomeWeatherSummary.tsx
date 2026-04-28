@@ -17,6 +17,7 @@ export default function HomeWeatherSummary() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let cancelled = false;
     async function fetchWeather() {
       try {
         const sessionsRes = await fetch("https://api.openf1.org/v1/sessions?circuit_short_name=Miami&year=2026&limit=1");
@@ -31,31 +32,40 @@ export default function HomeWeatherSummary() {
         const res = await fetch(url);
         if (res.ok) {
           const data = await res.json();
-          if (data.length > 0) {
-            setW({
-              trackTemp: data[0].track_temperature ?? 32,
-              airTemp: data[0].air_temperature ?? 28,
-              humidity: data[0].humidity ?? 65,
-              windSpeed: data[0].wind_speed ?? 18,
-              rain: data[0].rain_percentage ?? 10,
-            });
+          if (!cancelled) {
+            if (data.length > 0) {
+              setW({
+                trackTemp: data[0].track_temperature ?? 32,
+                airTemp: data[0].air_temperature ?? 28,
+                humidity: data[0].humidity ?? 65,
+                windSpeed: data[0].wind_speed ?? 18,
+                rain: data[0].rain_percentage ?? 10,
+              });
+            } else {
+              setW(FALLBACK);
+            }
             setLoading(false);
-            return;
           }
+        } else if (!cancelled) {
+          setW(FALLBACK);
+          setLoading(false);
         }
-        setW(FALLBACK);
       } catch {
-        setW(FALLBACK);
-      } finally {
-        setLoading(false);
+        if (!cancelled) {
+          setW(FALLBACK);
+          setLoading(false);
+        }
       }
     }
     fetchWeather();
     const t = setInterval(fetchWeather, 120000);
-    return () => clearInterval(t);
+    return () => {
+      cancelled = true;
+      clearInterval(t);
+    };
   }, []);
 
-  if (!w && loading) {
+  if (loading) {
     return (
       <div className="mt-4 pt-3 border-t border-[#2c2c2e] flex items-center justify-between">
         <div className="flex items-center gap-2">
