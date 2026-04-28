@@ -48,9 +48,9 @@ const FALLBACK_CONSTRUCTORS = [
   { position: "1", Constructor: { name: "Mercedes" }, points: "135" },
   { position: "2", Constructor: { name: "Ferrari" }, points: "90" },
   { position: "3", Constructor: { name: "McLaren" }, points: "46" },
-  { position: "4", Constructor: { name: "Haas" }, points: "18" },
-  { position: "5", Constructor: { name: "Alpine" }, points: "16" },
-  { position: "6", Constructor: { name: "Red Bull Racing" }, points: "22" },
+  { position: "4", Constructor: { name: "Red Bull Racing" }, points: "22" },
+  { position: "5", Constructor: { name: "Haas" }, points: "18" },
+  { position: "6", Constructor: { name: "Alpine" }, points: "4" },
   { position: "7", Constructor: { name: "Aston Martin" }, points: "10" },
   { position: "8", Constructor: { name: "Audi" }, points: "10" },
   { position: "9", Constructor: { name: "Williams" }, points: "2" },
@@ -173,6 +173,7 @@ export default function StandingsPage() {
   const [constructors, setConstructors] = useState<ErgastConstructorStanding[]>(FALLBACK_CONSTRUCTORS);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [activeTab, setActiveTab] = useState<"drivers" | "constructors">("drivers");
 
   useEffect(() => {
     fetchStandings()
@@ -217,55 +218,82 @@ export default function StandingsPage() {
         </div>
       </div>
 
-      {/* ── Drivers ── */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">Pilots</h2>
-          <span className="pill">Top 22</span>
-        </div>
-        <div className="card overflow-hidden">
-          {driverRows.map((d, i) => {
-            const rank = i + 1;
-            const driverName = `${d.Driver.givenName} ${d.Driver.familyName}`;
-            // team from Ergast is in Constructors[0].name
-            const teamName = d.Constructors?.[0]?.name ?? d.Driver.team ?? "Unknown";
-            const color = TEAM_COLORS[teamName] ?? "#636366";
-            return (
-              <DriverRow
-                key={`driver-${rank}`}
-                rank={rank}
-                driver={driverName}
-                team={teamName}
-                points={d.points}
-                color={color}
-              />
-            );
-          })}
-        </div>
+      {/* Tab switcher */}
+      <div className="flex gap-2 mb-4">
+        <button
+          onClick={() => setActiveTab("drivers")}
+          className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${
+            activeTab === "drivers"
+              ? "bg-[#00ff94] text-black"
+              : "bg-[#2c2c2e] text-[#8e8e93]"
+          }`}
+        >
+          Pilots
+        </button>
+        <button
+          onClick={() => setActiveTab("constructors")}
+          className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${
+            activeTab === "constructors"
+              ? "bg-[#00ff94] text-black"
+              : "bg-[#2c2c2e] text-[#8e8e93]"
+          }`}
+        >
+          Constructors
+        </button>
       </div>
 
+      {/* ── Drivers ── */}
+      {activeTab === "drivers" && (
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold">Pilots</h2>
+            <span className="pill">Top 22</span>
+          </div>
+          <div className="card overflow-hidden">
+            {driverRows.map((d, i) => {
+              const rank = i + 1;
+              const driverName = `${d.Driver.givenName} ${d.Driver.familyName}`;
+              const teamName = d.Constructors?.[0]?.name ?? d.Driver.team ?? "Unknown";
+              const color = TEAM_COLORS[teamName] ?? "#636366";
+              return (
+                <DriverRow
+                  key={`driver-${rank}`}
+                  rank={rank}
+                  driver={driverName}
+                  team={teamName}
+                  points={d.points}
+                  color={color}
+                />
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* ── Constructors ── */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">Constructors</h2>
-          <span className="pill">Top 11</span>
+      {activeTab === "constructors" && (
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold">Constructors</h2>
+            <span className="pill">Top 11</span>
+          </div>
+          <div className="card overflow-hidden">
+            {constructorRows.map((c, i) => {
+              const rank = i + 1;
+              const color = TEAM_COLORS[c.Constructor.name] ?? "#636366";
+              return (
+                <ConstructorRow
+                  key={`constructor-${rank}`}
+                  rank={rank}
+                  team={c.Constructor.name}
+                  points={c.points}
+                  color={color}
+                />
+              );
+            })}
+          </div>
         </div>
-        <div className="card overflow-hidden">
-          {constructorRows.map((c, i) => {
-            const rank = i + 1;
-            const color = TEAM_COLORS[c.Constructor.name] ?? "#636366";
-            return (
-              <ConstructorRow
-                key={`constructor-${rank}`}
-                rank={rank}
-                team={c.Constructor.name}
-                points={c.points}
-                color={color}
-              />
-            );
-          })}
-        </div>
-      </div>
+      )}
     </div>
   );
 }

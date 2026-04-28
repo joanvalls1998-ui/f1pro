@@ -102,7 +102,7 @@ function predictSprint() {
 const SPRINT_PRED = predictSprint();
 
 // ── Components ────────────────────────────────────────────────────────────────
-function PodiumCard({ drivers, label }: { drivers: typeof PREDICTION; label: string }) {
+function PodiumCard({ drivers, label }: { drivers: { acronym: string; name: string; team: string; color: string }[]; label: string }) {
   return (
     <div className="card p-4 mb-4">
       <p className="text-[10px] uppercase tracking-widest text-[#636366] font-semibold mb-3">
@@ -195,7 +195,7 @@ function RacePredictionRow({ driver, position, isDNF }: { driver: { acronym: str
         <div className="w-3 h-3 rounded-full" style={{ backgroundColor: `#${driver.color}` }} />
       </div>
       <span className="w-12 text-right font-mono text-[11px] text-[#00ff94]">
-        {isDNF ? "— —" : `${driver.predictedPoints} pts`}
+        {isDNF ? "DNF" : `${driver.predictedPoints} pts`}
       </span>
     </div>
   );
@@ -221,7 +221,12 @@ export default function PredictionsPage() {
       </div>
 
       {/* Podium */}
-      <PodiumCard drivers={PREDICTION.slice(0, 3)} label="Podi predit" />
+      {tab === "race" && (
+        <PodiumCard drivers={PREDICTION.slice(0, 3)} label="Podi predit" />
+      )}
+      {tab === "sprint" && (
+        <PodiumCard drivers={SPRINT_PRED.slice(0, 3)} label="Podi Sprint predit" />
+      )}
 
       {/* Tab selector */}
       <div className="flex gap-2 mb-4">
@@ -251,6 +256,12 @@ export default function PredictionsPage() {
               Classificació predita · Top 10
             </p>
             <div className="card overflow-hidden">
+              <div className="flex items-center px-4 py-2 bg-[#1c1c1e] border-b border-[#38383a]/50 text-[#636366] text-[10px] font-semibold uppercase tracking-wider">
+                <span className="w-8 text-center">Pos</span>
+                <span className="w-10 text-center">Nº</span>
+                <span className="flex-1 ml-2">Driver</span>
+                <span className="w-12 text-right">Pts</span>
+              </div>
               {PREDICTION.slice(0, 10).map((driver, idx) => (
                 <RacePredictionRow
                   key={driver.acronym}
@@ -322,6 +333,12 @@ export default function PredictionsPage() {
               Classificació Sprint · Top 8
             </p>
             <div className="card overflow-hidden">
+              <div className="flex items-center px-4 py-2 bg-[#1c1c1e] border-b border-[#38383a]/50 text-[#636366] text-[10px] font-semibold uppercase tracking-wider">
+                <span className="w-8 text-center">Pos</span>
+                <span className="w-10 text-center">Nº</span>
+                <span className="flex-1 ml-2">Driver</span>
+                <span className="w-12 text-right">Pts</span>
+              </div>
               {SPRINT_PRED.slice(0, 8).map((driver, idx) => (
                 <RacePredictionRow
                   key={driver.acronym}

@@ -130,7 +130,7 @@ async function fetchSessionStatus(): Promise<SessionStatus[]> {
 }
 
 async function fetchLivePositions(): Promise<LiveEntry[]> {
-  const data = await fetchOpenF1<{ driver_number: number; position: number; interval_to_leader: string; interval_to_position_ahead: string; last_lap_time: string; pit_lap: number | null; deleted: number }[]>("position");
+  const data = await fetchOpenF1<{ driver_number: number; position: number; interval_to_leader: string; time_to_position_ahead: string; last_lap_time: string; pit_lap: number | null; deleted: number }[]>("position");
   if (!data || data.length === 0) return [];
 
   return data
@@ -139,7 +139,7 @@ async function fetchLivePositions(): Promise<LiveEntry[]> {
       driverNumber:   r.driver_number,
       position:       r.position,
       gap:            r.interval_to_leader ?? "LEAD",
-      interval:       r.interval_to_position_ahead ?? "—",
+      interval:       r.time_to_position_ahead ?? "—",
       lastLap:        r.last_lap_time ? formatLapTime(r.last_lap_time) : "—",
       pitLap:         r.pit_lap ?? undefined,
       deleted:        r.deleted === 1,

@@ -145,7 +145,6 @@ export default function AnalysisPage() {
                     className="w-full rounded-t-sm transition-all"
                     style={{
                       height: `${width}%`,
-                      minHeight: entry.rank === 1 ? "100%" : `${width}%`,
                       backgroundColor:
                         entry.rank === 1
                           ? "#00ff94"

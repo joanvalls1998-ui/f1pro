@@ -53,6 +53,7 @@ function WindArrow({ degrees }: { degrees: number }) {
 }
 
 function CompassLabel({ degrees }: { degrees: number }) {
+  if (degrees < 0) return <span className="text-[10px] text-[#636366]">--</span>;
   const dirs = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
   const idx = Math.round(degrees / 45) % 8;
   return <span className="text-[10px] text-[#636366]">{dirs[idx]} · {degrees}°</span>;
@@ -62,6 +63,7 @@ export default function WeatherPage() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState<string>("");
+  const [isDemo, setIsDemo] = useState(false);
 
   useEffect(() => {
     async function fetchWeather() {
@@ -131,7 +133,7 @@ export default function WeatherPage() {
       </div>
 
       {/* Hero weather card */}
-      <div className="rounded-2xl bg-gradient-to-br from-[#1c1c1e] to-[#141414] border border-[#38383a] overflow-hidden mb-4">
+      <div className="relative rounded-2xl bg-gradient-to-br from-[#1c1c1e] to-[#141414] border border-[#38383a] overflow-hidden mb-4">
         {/* Top strip */}
         <div className="flex items-center justify-between px-5 py-3 bg-[#2c2c2e]/80">
           <div className="flex items-center gap-3">
@@ -149,6 +151,13 @@ export default function WeatherPage() {
             <p className="text-[10px] text-[#636366]">Track Status</p>
           </div>
         </div>
+
+        {/* Demo badge */}
+        {isDemo && !loading && (
+          <div className="absolute top-3 right-3 bg-[#ff6b35]/20 border border-[#ff6b35]/50 rounded-full px-2.5 py-1">
+            <span className="text-[10px] font-bold text-[#ff6b35] tracking-wider">DADES DEMO</span>
+          </div>
+        )}
 
         {/* Track temp — hero number */}
         <div className="px-5 pt-6 pb-5 text-center">
@@ -187,7 +196,7 @@ export default function WeatherPage() {
             <span className="text-lg font-bold text-[#00ff94]">%</span>
           </div>
           <div className="mt-2 h-1.5 bg-[#2c2c2e] rounded-full overflow-hidden">
-            <div className="h-full rounded-full bg-gradient-to-r from-[#00ff94] to-[#00cc77]" style={{ width: loading ? "0%" : `${weather?.humidity ?? 0}%` }} />
+            <div className="h-full rounded-full bg-gradient-to-r from-[#00ff94] to-[#00cc77] transition-all duration-500" style={{ width: loading ? "2%" : `${weather?.humidity ?? 0}%` }} />
           </div>
         </div>
 
@@ -198,11 +207,11 @@ export default function WeatherPage() {
             <span className="text-[10px] uppercase tracking-widest text-[#636366] font-semibold">Wind</span>
           </div>
           <div className="flex items-center gap-2 mb-1">
-            <WindArrow degrees={weather?.wind_direction ?? 0} />
+            <WindArrow degrees={loading ? -1 : (weather?.wind_direction ?? 0)} />
             <span className="text-4xl font-bold text-white tabular-nums">{loading ? "--" : weather?.wind_speed ?? "--"}</span>
             <span className="text-sm font-bold text-[#00ff94]">km/h</span>
           </div>
-          <CompassLabel degrees={weather?.wind_direction ?? 0} />
+          <CompassLabel degrees={loading ? -1 : (weather?.wind_direction ?? 0)} />
         </div>
 
         {/* Pressure */}
@@ -234,7 +243,7 @@ export default function WeatherPage() {
           <div
             className="h-full rounded-full transition-all duration-700"
             style={{
-              width: loading ? "0%" : `${weather?.rain_percentage ?? 0}%`,
+              width: loading ? "2%" : `${weather?.rain_percentage ?? 0}%`,
               background: weather && weather.rain_percentage > 30
                 ? "linear-gradient(90deg, #ffaa00, #ff6b35)"
                 : "linear-gradient(90deg, #00ff94, #00cc77)",

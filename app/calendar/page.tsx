@@ -1,7 +1,9 @@
 const RACES = [
-  { name: "Australian Grand Prix", date: "2026-03-06", location: "Melbourne", flag: "AU", status: "completed", laps: 58, km: 5.278 },
-  { name: "Chinese Grand Prix", date: "2026-03-13", location: "Shanghai", flag: "CN", status: "completed", laps: 56, km: 5.451 },
-  { name: "Japanese Grand Prix", date: "2026-03-27", location: "Suzuka", flag: "JP", status: "completed", laps: 53, km: 5.807 },
+  { name: "Bahrain Grand Prix", date: "2026-02-27", location: "Sakhir", flag: "BH", status: "cancelled", laps: 57, km: 5.412 },
+  { name: "Saudi Arabian Grand Prix", date: "2026-03-06", location: "Jeddah", flag: "SA", status: "cancelled", laps: 50, km: 6.174 },
+  { name: "Australian Grand Prix", date: "2026-03-14", location: "Melbourne", flag: "AU", status: "completed", laps: 58, km: 5.278 },
+  { name: "Chinese Grand Prix", date: "2026-03-21", location: "Shanghai", flag: "CN", status: "completed", laps: 56, km: 5.451 },
+  { name: "Japanese Grand Prix", date: "2026-04-04", location: "Suzuka", flag: "JP", status: "completed", laps: 53, km: 5.807 },
   { name: "Miami Grand Prix", date: "2026-05-01", location: "Miami", flag: "US", status: "next", laps: 57, km: 5.412 },
   { name: "Canadian Grand Prix", date: "2026-05-22", location: "Montreal", flag: "CA", status: "upcoming", laps: 70, km: 4.361 },
   { name: "Monaco Grand Prix", date: "2026-06-05", location: "Monaco", flag: "MC", status: "upcoming", laps: 78, km: 3.337 },
@@ -72,11 +74,11 @@ export default function CalendarPage() {
       {/* Race list */}
       <div className="space-y-2">
         {RACES.map((race, i) => (
-          <div 
-            key={i} 
+          <div
+            key={i}
             className={`card flex items-center gap-3 p-3 ${
               race.status === "next" ? "border border-[#00ff94]/50" : ""
-            }`}
+            } ${race.status === "cancelled" ? "opacity-50" : ""}`}
           >
             <div className="text-center w-10 flex-shrink-0">
               <span className="text-xl">{getFlagEmoji(race.flag)}</span>
@@ -116,6 +118,9 @@ function formatDate(dateStr: string): string {
 function StatusBadge({ status }: { status: string }) {
   if (status === "completed") {
     return <span className="text-xs text-[#00ff94]">✓</span>;
+  }
+  if (status === "cancelled") {
+    return <span className="text-xs text-red-400">CANCELLADA</span>;
   }
   if (status === "next") {
     return <span className="pill">PRÒXIMA</span>;

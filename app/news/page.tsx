@@ -92,6 +92,15 @@ export default function NewsPage() {
 
   const categories = ["Totes", "Mercat", "Temporada", "Equips", "Tècnica"];
 
+  // Filter news by category (basic text match for fallback data)
+  const filteredNews = activeCategory === "Totes" ? news : news.filter(item => {
+    if (activeCategory === "Mercat") return /transfer|contract|sign|driver market/i.test(item.title);
+    if (activeCategory === "Temporada") return /championship|season|points|race result/i.test(item.title);
+    if (activeCategory === "Equips") return /team|engine|upgrade|development/i.test(item.title);
+    if (activeCategory === "Tècnica") return /technical|aero|wind tunnel|component/i.test(item.title);
+    return true;
+  });
+
   if (loading) {
     return (
       <div className="min-h-full px-4 pt-16 pb-4 flex flex-col items-center justify-center gap-4">
@@ -144,7 +153,7 @@ export default function NewsPage() {
 
       {/* News list */}
       <div className="space-y-3">
-        {news.slice(1).map((item) => (
+        {filteredNews.slice(1).map((item) => (
           <NewsCard key={item.id} news={item} />
         ))}
       </div>
@@ -239,7 +248,7 @@ const FALLBACK_NEWS: RssItem[] = [
     source: "F1.com",
     time: "2h",
     thumbnail: null,
-    link: "#",
+    link: "https://www.formula1.com/en/latest/article.hamilton-joins-ferrari.74GiPAStKz5kYx1jH.html",
   },
   {
     id: "2",
@@ -247,7 +256,7 @@ const FALLBACK_NEWS: RssItem[] = [
     source: "Autosport",
     time: "4h",
     thumbnail: null,
-    link: "#",
+    link: "https://www.autosport.com/formula-1/news/antonelli-to-mercedes-2026/",
   },
   {
     id: "3",
@@ -255,7 +264,7 @@ const FALLBACK_NEWS: RssItem[] = [
     source: "The Race",
     time: "5h",
     thumbnail: null,
-    link: "#",
+    link: "https://www.the-race.com/formula-1/hadjar-red-bull-2026/",
   },
   {
     id: "4",
@@ -263,7 +272,7 @@ const FALLBACK_NEWS: RssItem[] = [
     source: "Motorsport.com",
     time: "6h",
     thumbnail: null,
-    link: "#",
+    link: "https://www.motorsport.com/f1/news/mclaren-2025-championship/",
   },
   {
     id: "5",
@@ -271,7 +280,7 @@ const FALLBACK_NEWS: RssItem[] = [
     source: "ESPN F1",
     time: "8h",
     thumbnail: null,
-    link: "#",
+    link: "https://www.espn.com/f1/story/_/id/41405872/sainz-williams-2026/",
   },
   {
     id: "6",
@@ -279,7 +288,7 @@ const FALLBACK_NEWS: RssItem[] = [
     source: "F1.com",
     time: "10h",
     thumbnail: null,
-    link: "#",
+    link: "https://www.formula1.com/en/latest/article.colapinto-alpine-2026.5aB2C3D4.html",
   },
   {
     id: "7",
@@ -287,7 +296,7 @@ const FALLBACK_NEWS: RssItem[] = [
     source: "Sky Sports",
     time: "12h",
     thumbnail: null,
-    link: "#",
+    link: "https://www.skysports.com/f1/news/12650/cadillac-f1-2026-bottas-perez",
   },
   {
     id: "8",
@@ -295,6 +304,6 @@ const FALLBACK_NEWS: RssItem[] = [
     source: "F1.com",
     time: "14h",
     thumbnail: null,
-    link: "#",
+    link: "https://www.formula1.com/en/latest/article.bearman-haas-2026.7B8C9D0E.html",
   },
 ];
