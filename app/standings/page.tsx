@@ -17,44 +17,43 @@ const TEAM_COLORS: Record<string, string> = {
   "Cadillac": "#909090",
 };
 
-// ── 2026 Season Results (after Round 3: Australia, China, Japan) ──────────────
-// Bahrain & Saudi Arabia were cancelled
+// ── 2026 Season (Pre-Miami: Bahrain & Saudi cancelled, 0 punts scored) ──────
 const FALLBACK_DRIVERS = [
-  { position: "1", Driver: { givenName: "Kimi", familyName: "Antonelli", team: "Mercedes" }, points: "72" },
-  { position: "2", Driver: { givenName: "George", familyName: "Russell", team: "Mercedes" }, points: "63" },
-  { position: "3", Driver: { givenName: "Charles", familyName: "Leclerc", team: "Ferrari" }, points: "49" },
-  { position: "4", Driver: { givenName: "Lewis", familyName: "Hamilton", team: "Ferrari" }, points: "41" },
-  { position: "5", Driver: { givenName: "Lando", familyName: "Norris", team: "McLaren" }, points: "25" },
-  { position: "6", Driver: { givenName: "Oscar", familyName: "Piastri", team: "McLaren" }, points: "21" },
-  { position: "7", Driver: { givenName: "Max", familyName: "Verstappen", team: "Red Bull Racing" }, points: "18" },
-  { position: "8", Driver: { givenName: "Oliver", familyName: "Bearman", team: "Haas" }, points: "12" },
-  { position: "9", Driver: { givenName: "Fernando", familyName: "Alonso", team: "Aston Martin" }, points: "8" },
-  { position: "10", Driver: { givenName: "Gabriel", familyName: "Bortoleto", team: "Audi" }, points: "6" },
-  { position: "11", Driver: { givenName: "Nico", familyName: "Hülkenberg", team: "Audi" }, points: "4" },
-  { position: "12", Driver: { givenName: "Pierre", familyName: "Gasly", team: "Alpine" }, points: "4" },
-  { position: "13", Driver: { givenName: "Isack", familyName: "Hadjar", team: "Red Bull Racing" }, points: "4" },
-  { position: "14", Driver: { givenName: "Lance", familyName: "Stroll", team: "Aston Martin" }, points: "2" },
-  { position: "15", Driver: { givenName: "Carlos", familyName: "Sainz", team: "Williams" }, points: "2" },
-  { position: "16", Driver: { givenName: "Alex", familyName: "Albon", team: "Williams" }, points: "0" },
-  { position: "17", Driver: { givenName: "Liam", familyName: "Lawson", team: "Racing Bulls" }, points: "0" },
-  { position: "18", Driver: { givenName: "Arvid", familyName: "Lindblad", team: "Racing Bulls" }, points: "0" },
-  { position: "19", Driver: { givenName: "Franco", familyName: "Colapinto", team: "Alpine" }, points: "0" },
-  { position: "20", Driver: { givenName: "Esteban", familyName: "Ocon", team: "Haas" }, points: "0" },
+  { position: "1", Driver: { givenName: "Lando", familyName: "Norris", team: "McLaren" }, points: "0" },
+  { position: "2", Driver: { givenName: "Oscar", familyName: "Piastri", team: "McLaren" }, points: "0" },
+  { position: "3", Driver: { givenName: "George", familyName: "Russell", team: "Mercedes" }, points: "0" },
+  { position: "4", Driver: { givenName: "Kimi", familyName: "Antonelli", team: "Mercedes" }, points: "0" },
+  { position: "5", Driver: { givenName: "Charles", familyName: "Leclerc", team: "Ferrari" }, points: "0" },
+  { position: "6", Driver: { givenName: "Lewis", familyName: "Hamilton", team: "Ferrari" }, points: "0" },
+  { position: "7", Driver: { givenName: "Max", familyName: "Verstappen", team: "Red Bull Racing" }, points: "0" },
+  { position: "8", Driver: { givenName: "Liam", familyName: "Lawson", team: "Racing Bulls" }, points: "0" },
+  { position: "9", Driver: { givenName: "Isack", familyName: "Hadjar", team: "Red Bull Racing" }, points: "0" },
+  { position: "10", Driver: { givenName: "Yuki", familyName: "Tsunoda", team: "Racing Bulls" }, points: "0" },
+  { position: "11", Driver: { givenName: "Nico", familyName: "Hülkenberg", team: "Audi" }, points: "0" },
+  { position: "12", Driver: { givenName: "Gabriel", familyName: "Bortoleto", team: "Audi" }, points: "0" },
+  { position: "13", Driver: { givenName: "Fernando", familyName: "Alonso", team: "Aston Martin" }, points: "0" },
+  { position: "14", Driver: { givenName: "Lance", familyName: "Stroll", team: "Aston Martin" }, points: "0" },
+  { position: "15", Driver: { givenName: "Oliver", familyName: "Bearman", team: "Haas" }, points: "0" },
+  { position: "16", Driver: { givenName: "Esteban", familyName: "Ocon", team: "Haas" }, points: "0" },
+  { position: "17", Driver: { givenName: "Pierre", familyName: "Gasly", team: "Alpine" }, points: "0" },
+  { position: "18", Driver: { givenName: "Franco", familyName: "Colapinto", team: "Alpine" }, points: "0" },
+  { position: "19", Driver: { givenName: "Alex", familyName: "Albon", team: "Williams" }, points: "0" },
+  { position: "20", Driver: { givenName: "Carlos", familyName: "Sainz", team: "Williams" }, points: "0" },
   { position: "21", Driver: { givenName: "Valtteri", familyName: "Bottas", team: "Cadillac" }, points: "0" },
   { position: "22", Driver: { givenName: "Sergio", familyName: "Pérez", team: "Cadillac" }, points: "0" },
 ];
 
 const FALLBACK_CONSTRUCTORS = [
-  { position: "1", Constructor: { name: "Mercedes" }, points: "135" },
-  { position: "2", Constructor: { name: "Ferrari" }, points: "90" },
-  { position: "3", Constructor: { name: "McLaren" }, points: "46" },
-  { position: "4", Constructor: { name: "Red Bull Racing" }, points: "22" },
-  { position: "5", Constructor: { name: "Haas" }, points: "18" },
-  { position: "6", Constructor: { name: "Aston Martin" }, points: "10" },
-  { position: "6", Constructor: { name: "Audi" }, points: "10" },
-  { position: "8", Constructor: { name: "Alpine" }, points: "4" },
-  { position: "9", Constructor: { name: "Williams" }, points: "2" },
-  { position: "10", Constructor: { name: "Racing Bulls" }, points: "0" },
+  { position: "1", Constructor: { name: "McLaren" }, points: "0" },
+  { position: "2", Constructor: { name: "Mercedes" }, points: "0" },
+  { position: "3", Constructor: { name: "Ferrari" }, points: "0" },
+  { position: "4", Constructor: { name: "Red Bull Racing" }, points: "0" },
+  { position: "5", Constructor: { name: "Racing Bulls" }, points: "0" },
+  { position: "6", Constructor: { name: "Audi" }, points: "0" },
+  { position: "7", Constructor: { name: "Aston Martin" }, points: "0" },
+  { position: "8", Constructor: { name: "Haas" }, points: "0" },
+  { position: "9", Constructor: { name: "Alpine" }, points: "0" },
+  { position: "10", Constructor: { name: "Williams" }, points: "0" },
   { position: "11", Constructor: { name: "Cadillac" }, points: "0" },
 ];
 
@@ -213,8 +212,8 @@ export default function StandingsPage() {
       <div className="bg-[#ffd700]/10 border border-[#ffd700]/30 rounded-xl p-3 mb-4 flex items-center gap-3">
         <span className="text-xl">🏆</span>
         <div>
-          <p className="text-sm font-semibold text-[#ffd700]">Temporada 2026 en curs · 3 curses completades</p>
-          <p className="text-xs text-[#8e8e93]">R1: Russell (AUS) · R2: Antonelli (CHN) · R3: Antonelli (JPN) · Bahrain &amp; Saudi: CANCEL·LADES</p>
+          <p className="text-sm font-semibold text-[#ffd700]">Prenota temporada · 0 curses completades (Bahrain i Saudi cancel·lades)</p>
+          <p className="text-xs text-[#8e8e93]">Bahrain (CANCEL·LADA) · Saudi Arabia (CANCEL·LADA) · Tots els pilots a 0 punts</p>
         </div>
       </div>
 
