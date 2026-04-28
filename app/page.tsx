@@ -30,11 +30,11 @@ const FALLBACK_STANDINGS = [
 ];
 
 const FALLBACK_NEWS = [
-  { title: "Antonelli claims maiden F1 victory in dramatic Jeddah finish", link: "#", pubDate: "2026-04-27", source: "F1.com" },
-  { title: "Ferrari confident of podium fight ahead of Miami weekend", link: "#", pubDate: "2026-04-26", source: "Autosport" },
-  { title: "McLaren unveil major upgrade package for Miami GP", link: "#", pubDate: "2026-04-25", source: "The Race" },
-  { title: "Hamilton adapting well to Ferrari, says Vasseur", link: "#", pubDate: "2026-04-24", source: "Sky Sports" },
-  { title: "Sainz targets strong home European opener after tough start", link: "#", pubDate: "2026-04-23", source: "Motorsport.com" },
+  { title: "Antonelli claims maiden F1 victory in dramatic Jeddah finish", link: "https://www.formula1.com/en/latest/article.antonelli-maiden-victory-2026.html", pubDate: "2026-04-27", source: "F1.com" },
+  { title: "Ferrari confident of podium fight ahead of Miami weekend", link: "https://www.autosport.com/f1/news/ferrari-podium-miami-2026/", pubDate: "2026-04-26", source: "Autosport" },
+  { title: "McLaren unveil major upgrade package for Miami GP", link: "https://www.the-race.com/f1/mclaren-upgrade-miami-2026/", pubDate: "2026-04-25", source: "The Race" },
+  { title: "Hamilton adapting well to Ferrari, says Vasseur", link: "https://www.skysports.com/f1/news/hamilton-ferrari-vasseur/", pubDate: "2026-04-24", source: "Sky Sports" },
+  { title: "Sainz targets strong home European opener after tough start", link: "https://www.motorsport.com/f1/news/sainz-williams-europe-2026/", pubDate: "2026-04-23", source: "Motorsport.com" },
 ];
 
 // ─── Countdown logic ─────────────────────────────────────────────────────────
