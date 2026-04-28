@@ -1,6 +1,6 @@
 export default function TelemetryPage() {
   return (
-    <div className="min-h-full px-5 pt-12 pb-4">
+    <div className="min-h-full px-5 pt-16 pb-4">
       <div className="mb-6">
         <h1 className="text-2xl font-bold mb-1">Telemetria</h1>
         <p className="text-[#8e8e93] text-sm">Comparador i anàlisi</p>

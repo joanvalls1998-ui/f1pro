@@ -14,7 +14,7 @@ const FALLBACK_DRIVERS = [
 
 export default function LivePage() {
   return (
-    <div className="min-h-full px-4 pt-10 pb-4">
+    <div className="min-h-full px-4 pt-16 pb-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div>

@@ -13,7 +13,7 @@ export default function CalendarPage() {
   ];
 
   return (
-    <div className="min-h-full px-5 pt-12 pb-4">
+    <div className="min-h-full px-5 pt-16 pb-4">
       <div className="mb-6">
         <h1 className="text-2xl font-bold mb-1">Calendari 2026</h1>
         <p className="text-[#8e8e93] text-sm">24 curses · Març - Desembre</p>
