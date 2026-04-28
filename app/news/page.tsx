@@ -56,7 +56,7 @@ export default function NewsPage() {
     async function fetchNews() {
       try {
         const res = await fetch(
-          "https://api.rss2json.com/v1/api.json?rss_url=https://feeds.feedspot.com/ff_F1"
+          "https://api.rss2json.com/v1/api.json?rss_url=https://www.motorsport.com/rss/f1/news/"
         );
         if (!res.ok) throw new Error("Error en carregar les notícies");
         const data: RssResponse = await res.json();
