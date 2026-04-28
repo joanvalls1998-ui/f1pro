@@ -175,7 +175,7 @@ export default function WeatherPage() {
   const weatherLabel = weather ? getWeatherLabel(weather.rain_percentage) : "Clear";
 
   return (
-    <div className="min-h-full px-4 pt-10 pb-4">
+    <div className="min-h-full px-4 pt-16 pb-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div>

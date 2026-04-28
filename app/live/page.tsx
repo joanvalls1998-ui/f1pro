@@ -1,4 +1,8 @@
-// Static fallback data - works without JavaScript
+"use client";
+
+import { useState, useEffect } from "react";
+
+// Static fallback data - rendered in initial HTML (works without JavaScript)
 const FALLBACK_DRIVERS = [
   { driver_number: 1, name_acronym: "NOR", first_name: "Lando", last_name: "Norris", team_name: "McLaren", team_colour: "F47600" },
   { driver_number: 3, name_acronym: "VER", first_name: "Max", last_name: "Verstappen", team_name: "Red Bull Racing", team_colour: "4781D7" },
@@ -10,36 +14,88 @@ const FALLBACK_DRIVERS = [
   { driver_number: 5, name_acronym: "BOR", first_name: "Gabriel", last_name: "Bortoleto", team_name: "Audi", team_colour: "F50537" },
   { driver_number: 27, name_acronym: "HUL", first_name: "Nico", last_name: "Hülkenberg", team_name: "Audi", team_colour: "F50537" },
   { driver_number: 10, name_acronym: "GAS", first_name: "Pierre", last_name: "Gasly", team_name: "Alpine", team_colour: "00A1E8" },
+  { driver_number: 6, name_acronym: "HAD", first_name: "Isack", last_name: "Hadjar", team_name: "Red Bull Racing", team_colour: "4781D7" },
+  { driver_number: 55, name_acronym: "SAI", first_name: "Carlos", last_name: "Sainz Jr.", team_name: "Williams", team_colour: "64C3FF" },
 ];
 
+interface Session {
+  date_start: string;
+  date_end: string;
+  meeting_name: string;
+  session_name: string;
+}
+
 export default function LivePage() {
+  const [drivers, setDrivers] = useState<typeof FALLBACK_DRIVERS>(FALLBACK_DRIVERS);
+  const [session, setSession] = useState<Session | null>(null);
+  const [isLive, setIsLive] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch("/api/openf1?endpoint=sessions&year=2026&limit=5");
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!Array.isArray(data) || data.length === 0) return;
+
+        const now = new Date();
+        const activeSession = data.find((s: Session) => {
+          const start = new Date(s.date_start);
+          const end = new Date(s.date_end);
+          return start <= now && now < end;
+        });
+
+        if (activeSession) {
+          setSession(activeSession);
+          setIsLive(true);
+        }
+      } catch {
+        // Silently keep fallback data
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <div className="min-h-full px-4 pt-16 pb-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="flex items-center gap-1.5 bg-[#2c2c2e] text-[#8e8e93] px-2 py-0.5 rounded-full text-xs font-semibold">
-              📺 DEMO
-            </span>
+            {isLive && (
+              <span className="flex items-center gap-1.5 bg-red-600 text-white px-2 py-0.5 rounded-full text-xs font-bold animate-pulse">
+                <span className="w-1.5 h-1.5 bg-white rounded-full" />
+                LIVE
+              </span>
+            )}
+            {!isLive && (
+              <span className="flex items-center gap-1.5 bg-[#2c2c2e] text-[#8e8e93] px-2 py-0.5 rounded-full text-xs font-semibold">
+                📺 DEMO
+              </span>
+            )}
             <h1 className="text-xl font-bold">Live Timing</h1>
           </div>
           <p className="text-[#8e8e93] text-sm">
-            Jeddah — Race
+            {session ? `${session.meeting_name} — ${session.session_name}` : "Jeddah — Race"}
           </p>
         </div>
         <span className="text-[#636366] text-xs">
-          Sense dades en directe
+          {isLive ? "En directe" : "Sense dades en directe"}
         </span>
       </div>
 
       {/* Info banner */}
       <div className="card p-3 mb-4 bg-[#2c2c2e]">
         <p className="text-sm text-center text-[#8e8e93]">
-          ℹ️ Dades de mostra · Sessió: Jeddah GP 2026
+          {session
+            ? `Sessió activa: ${session.session_name}`
+            : "ℹ️ Dades de mostra · Sessió: Jeddah GP 2026"}
         </p>
         <p className="text-xs text-center text-[#636366] mt-1">
-          Durant una sessió en directe, aquí veuràs les posicions reals
+          {session
+            ? "Dades actualitzades en temps real des d&apos;OpenF1"
+            : "Durant una sessió en directe, aquí veuràs les posicions reals"}
         </p>
       </div>
 
@@ -53,7 +109,7 @@ export default function LivePage() {
           <span className="w-16 text-right">Gap</span>
         </div>
 
-        {FALLBACK_DRIVERS.map((driver, idx) => {
+        {drivers.map((driver, idx) => {
           const position = idx + 1;
           const isTop3 = position <= 3;
 
