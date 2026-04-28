@@ -32,6 +32,8 @@ interface Session {
   circuit_short_name: string;
 }
 
+const API = "/api/openf1";
+
 export default function LivePage() {
   const [drivers, setDrivers] = useState<Driver[]>([]);
   const [positions, setPositions] = useState<Position[]>([]);
@@ -39,27 +41,30 @@ export default function LivePage() {
   const [loading, setLoading] = useState(true);
   const [lastUpdate, setLastUpdate] = useState<string>("");
   const [isLive, setIsLive] = useState(false);
+  const [error, setError] = useState<string>("");
 
   const fetchData = useCallback(async () => {
     try {
+      setError("");
+
       // Get current/live session
       const now = new Date().toISOString();
       const sessionsRes = await fetch(
-        `https://api.openf1.org/v1/sessions?year=2026&date_start<=${now}&date_end>=${now}`
+        `${API}?endpoint=sessions&year=2026&date_start=lte${encodeURIComponent(now)}&date_end=gte${encodeURIComponent(now)}&limit=10`
       );
       const sessions: Session[] = await sessionsRes.json();
 
-      // If no live session, get the most recent one
-      if (sessions.length === 0) {
+      // If no live session, get the most recent race
+      if (!sessions || sessions.length === 0) {
         const pastRes = await fetch(
-          "https://api.openf1.org/v1/sessions?year=2026&session_type=Race&limit=1&date_end<=now"
+          `${API}?endpoint=sessions&year=2026&session_type=Race&limit=1&sort=date_end&order=desc`
         );
         const pastSessions: Session[] = await pastRes.json();
-        if (pastSessions.length > 0) {
+        if (pastSessions && pastSessions.length > 0) {
           setSession(pastSessions[0]);
           // Fetch drivers for this session
           const driversRes = await fetch(
-            `https://api.openf1.org/v1/drivers?session_key=${pastSessions[0].session_key}`
+            `${API}?endpoint=drivers&session_key=${pastSessions[0].session_key}`
           );
           const driversData: Driver[] = await driversRes.json();
           setDrivers(driversData.sort((a, b) => a.driver_number - b.driver_number));
@@ -69,27 +74,34 @@ export default function LivePage() {
         return;
       }
 
-      const liveSession = sessions[0];
+      const liveSession = sessions.find(s => !s.date_end || new Date(s.date_end) > new Date());
+      if (!liveSession) {
+        setIsLive(false);
+        setLoading(false);
+        return;
+      }
+
       setSession(liveSession);
       setIsLive(true);
 
       // Fetch drivers
       const driversRes = await fetch(
-        `https://api.openf1.org/v1/drivers?session_key=${liveSession.session_key}`
+        `${API}?endpoint=drivers&session_key=${liveSession.session_key}`
       );
       const driversData: Driver[] = await driversRes.json();
       setDrivers(driversData.sort((a, b) => a.driver_number - b.driver_number));
 
       // Fetch positions
       const posRes = await fetch(
-        `https://api.openf1.org/v1/position?session_key=${liveSession.session_key}&limit=20`
+        `${API}?endpoint=position&session_key=${liveSession.session_key}&limit=20`
       );
       const posData: Position[] = await posRes.json();
-      setPositions(posData);
+      setPositions(posData || []);
 
       setLastUpdate(new Date().toLocaleTimeString("ca-ES"));
     } catch (err) {
       console.error("Error fetching data:", err);
+      setError("Error carregant dades. Torna a intentar.");
     } finally {
       setLoading(false);
     }
@@ -107,6 +119,23 @@ export default function LivePage() {
         <div className="text-center">
           <div className="w-12 h-12 border-3 border-[#00ff94] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-[#8e8e93]">Carregant dades...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-full flex items-center justify-center px-5">
+        <div className="text-center">
+          <span className="text-4xl mb-4 block">⚠️</span>
+          <p className="text-red-400">{error}</p>
+          <button
+            onClick={fetchData}
+            className="mt-4 px-4 py-2 bg-[#2c2c2e] rounded-xl text-sm font-medium"
+          >
+            Reintentar
+          </button>
         </div>
       </div>
     );
@@ -156,19 +185,30 @@ export default function LivePage() {
         </div>
       )}
 
+      {/* No live session message */}
+      {!isLive && (
+        <div className="card p-4 mb-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-lg">📺</span>
+            <span className="text-sm font-medium">Sense sessió activa</span>
+          </div>
+          <span className="pill">DEMÀ: Miami FP1</span>
+        </div>
+      )}
+
       {/* Position table */}
       <div className="card overflow-hidden">
         <div className="px-4 py-2 bg-[#2c2c2e] flex items-center text-[10px] uppercase tracking-wider text-[#636366] font-semibold">
           <span className="w-8 text-center">Pos</span>
           <span className="w-10 text-center">#</span>
           <span className="flex-1 ml-2">Pilot</span>
-          <span className="w-20 text-right">Compañia</span>
+          <span className="w-20 text-right">Equip</span>
           <span className="w-16 text-right">Gap</span>
         </div>
 
         {sortedDrivers.length === 0 ? (
           <div className="p-8 text-center text-[#8e8e93]">
-            <p>Sense dades de posicions</p>
+            <p>Sense dades disponibles</p>
             <p className="text-sm text-[#636366] mt-1">
               Les posicions apareixeran aquí quan comenci la sessió
             </p>
@@ -236,16 +276,13 @@ export default function LivePage() {
         )}
       </div>
 
-      {/* No live session message */}
-      {!isLive && (
-        <div className="mt-4 text-center text-[#636366] text-sm">
-          <p>No hi ha cap sessió activa ara</p>
-          <p className="mt-1">
-            Pròxima cursa:{" "}
-            <span className="text-white font-medium">Miami GP</span> — 1 Maig 2026
-          </p>
-        </div>
-      )}
+      {/* Footer info */}
+      <div className="mt-4 text-center text-[#636366] text-xs">
+        <p>Dades: OpenF1 API · Actualització cada 3 segons</p>
+        <p className="mt-1">
+          Pròxima sessió: <span className="text-white">Miami GP FP1</span> — 1 Maig 2026 16:00 UTC
+        </p>
+      </div>
     </div>
   );
 }
