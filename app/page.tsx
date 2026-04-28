@@ -263,7 +263,7 @@ export default async function HomePage() {
           { icon: "🏆", label: "L. Hamilton", sub: "7x Champion", accent: "#F91536" },
           { icon: "🔴", label: "Ferrari", sub: "Constructor Leader", accent: "#F91536" },
           { icon: "⚡", label: "Top Speed", sub: "McLaren 348km/h", accent: "#F58020" },
-          { icon: "🌍", label: "21 Races", sub: "2026 Calendar", accent: "#00ff94" },
+          { icon: "🌍", label: "24 Races", sub: "2026 Calendar", accent: "#00ff94" },
         ].map((stat) => (
           <div
             key={stat.label}
