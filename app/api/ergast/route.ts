@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 
-const ERGAST_BASE = "http://ergast.com/api/f1";
+const ERGAST_BASE = "https://ergast.com/api/f1";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
