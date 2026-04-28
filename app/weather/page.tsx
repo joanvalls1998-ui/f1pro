@@ -94,13 +94,16 @@ export default function WeatherPage() {
             });
             setLastUpdated(new Date().toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" }));
             setLoading(false);
+            setIsDemo(false);
             return;
           }
         }
         setWeather(FALLBACK);
+        setIsDemo(true);
         setLastUpdated("--:--");
       } catch {
         setWeather(FALLBACK);
+        setIsDemo(true);
         setLastUpdated("--:--");
       } finally {
         setLoading(false);
@@ -124,6 +127,11 @@ export default function WeatherPage() {
           <h1 className="text-2xl font-bold tracking-tight">Weather</h1>
         </div>
         <div className="flex items-center gap-2">
+          {isDemo && (
+            <span className="text-xs bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded-full font-semibold">
+              DADES DEMO
+            </span>
+          )}
           {loading ? (
             <div className="w-4 h-4 rounded-full border-2 border-[#00ff94] border-t-transparent animate-spin" />
           ) : (
