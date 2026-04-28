@@ -91,6 +91,7 @@ function BottomNav() {
     { href: "/circuits", icon: "circuit", label: "Circuits" },
     { href: "/standings", icon: "trophy", label: "Classificació" },
     { href: "/telemetry", icon: "chart", label: "Telemetry" },
+    { href: "/weather", icon: "cloud", label: "Weather" },
   ];
 
   return (
@@ -112,6 +113,7 @@ function NavItem({ href, icon, label }: { href: string; icon: string; label: str
     circuit: `<path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>`,
     trophy: `<polyline points="12,2 15,8 22,9 17,14 18,21 12,18 6,21 7,14 2,9 9,8"/>`,
     chart: `<polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>`,
+    cloud: `<path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/>`,
   };
 
   return (
