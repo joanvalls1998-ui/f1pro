@@ -21,7 +21,6 @@ function getCountdown(targetDate: string) {
 
 export default function HomePage() {
   const countdown = getCountdown(NEXT_RACE.date);
-  const isLive = false; // TODO: check OpenF1 for live sessions
 
   return (
     <div className="min-h-full">
@@ -38,14 +37,6 @@ export default function HomePage() {
               <span className="text-xl">🏎️</span>
             </div>
           </div>
-
-          {/* Live Badge */}
-          {isLive && (
-            <Link href="/live" className="inline-flex items-center gap-2 bg-red-500/20 text-red-400 px-3 py-1.5 rounded-full mb-4">
-              <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-              <span className="text-xs font-semibold">EN DIRECTE</span>
-            </Link>
-          )}
         </div>
       </div>
 
@@ -85,35 +76,6 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Latest News Section */}
-      <div className="px-5 mb-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">Últimes notícies</h2>
-          <button className="text-[#00ff94] text-sm font-medium">Veure tot</button>
-        </div>
-
-        <div className="space-y-3">
-          <NewsCard
-            title="Hamilton prioritza el rendiment per sobre de tot"
-            source="F1.com"
-            time="2h"
-            image="🏎️"
-          />
-          <NewsCard
-            title="Sainz Jr. sorprèn amb el millor temps als entrenaments"
-            source="Autosport"
-            time="5h"
-            image="📈"
-          />
-          <NewsCard
-            title="Audi presenta el nou motor propi per al 2026"
-            source="The Race"
-            time="1d"
-            image="🔧"
-          />
-        </div>
-      </div>
-
       {/* Standings Preview */}
       <div className="px-5 mb-6">
         <div className="flex items-center justify-between mb-4">
@@ -148,20 +110,6 @@ function QuickAction({ href, icon, label, color }: { href: string; icon: string;
       <span className="text-2xl">{icon}</span>
       <span className="text-sm font-medium text-center">{label}</span>
     </Link>
-  );
-}
-
-function NewsCard({ title, source, time, image }: { title: string; source: string; time: string; image: string }) {
-  return (
-    <div className="card flex items-center gap-3 p-4">
-      <div className="w-12 h-12 bg-[#2c2c2e] rounded-xl flex items-center justify-center text-2xl">
-        {image}
-      </div>
-      <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium truncate">{title}</p>
-        <p className="text-[#636366] text-xs">{source} · {time}</p>
-      </div>
-    </div>
   );
 }
 
